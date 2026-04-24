@@ -1,0 +1,410 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100">
+    <div class="container">
+        <!-- Medical Vault Header -->
+        <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between mb-5 wow fadeInUp"
+            data-wow-delay="0.1s">
+            <div class="text-center text-lg-start mb-4 mb-lg-0">
+                <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                    <i class="fa fa-file-prescription text-primary me-2 small"></i>
+                    <span class="text-primary fw-bold x-small uppercase ls-2">Verified E-Rx Repository</span>
+                </div>
+                <h1 class="display-4 fw-extra-bold text-dark mt-2 mb-0">Clinical Prescriptions</h1>
+                <p class="text-muted mt-2 fs-5 max-w-600">Access your high-fidelity clinical medication records and
+                    cryptographic dosage history.</p>
+            </div>
+
+            <div class="d-none d-lg-block">
+                <div
+                    class="vault-status p-4 bg-dark rounded-5 shadow-2xl border-start border-primary border-4 position-relative overflow-hidden">
+                    <div class="auth-mesh opacity-10"></div>
+                    <div class="d-flex align-items-center position-relative z-index-2">
+                        <div class="bg-primary rounded-circle p-3 me-3 shadow-lg">
+                            <i class="fa fa-shield-halved text-white fs-4"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-white fw-extra-bold mb-0 x-small ls-1 uppercase">E-Rx Vault Secure</h6>
+                            <small class="text-white-50 text-uppercase fw-bold ls-1 x-small">Node Status:
+                                Protected</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-5 justify-content-center">
+            <div class="col-xl-11">
+                <div class="prescription-stack d-flex flex-column gap-5">
+                    {% for i in result %}
+                    <div class="prescription-node wow fadeInUp" data-wow-delay="0.1s">
+                        <div
+                            class="card border-0 shadow-2xl rounded-5 overflow-hidden glass-card transition-500 hover-lift-horizontal">
+                            <!-- Rx Branding Bar -->
+                            <div class="bg-dark p-4 p-lg-5 position-relative overflow-hidden">
+                                <div class="auth-mesh opacity-10"></div>
+                                <div class="row align-items-center position-relative z-index-2">
+                                    <div class="col-md-8">
+                                        <div class="d-flex align-items-center gap-4">
+                                            <div class="bg-primary rounded-4 p-3 d-flex align-items-center justify-content-center shadow-lg transform-5deg"
+                                                style="width: 65px; height: 65px;">
+                                                <i class="fa fa-pills text-white fs-3"></i>
+                                            </div>
+                                            <div>
+                                                <h2 class="mb-0 text-white fw-extra-bold tracking-tight">RX-NODE #{{
+                                                    i.id|add:15000 }}</h2>
+                                                <div class="d-flex align-items-center gap-3 mt-1">
+                                                    <span
+                                                        class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-3 py-1 rounded-pill x-small fw-extrabold ls-1 uppercase">ARCHIVE
+                                                        SECURE</span>
+                                                    <span class="text-white-50 fw-bold x-small uppercase ls-1">Auth By:
+                                                        Dr. {{ i.consultation.doctor.name }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                                        <div
+                                            class="p-3 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10 d-inline-block text-start">
+                                            <small
+                                                class="text-white-50 d-block x-small fw-bold ls-1 uppercase mb-1">Issue
+                                                Timestamp</small>
+                                            <h5 class="text-white fw-extra-bold mb-0">{{ i.consultation.date|date:"F d,
+                                                Y" }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-5 bg-white">
+                                <div class="row g-5">
+                                    <!-- Clinical Context Matrix -->
+                                    <div class="col-lg-5">
+                                        <div class="mb-5">
+                                            <div class="d-flex align-items-center gap-2 mb-4">
+                                                <i class="fa fa-stethoscope text-primary small"></i>
+                                                <h6 class="text-muted text-uppercase fw-extra-bold x-small mb-0 ls-2">
+                                                    Clinical Logic Bench</h6>
+                                            </div>
+                                            <div class="p-4 bg-light rounded-5 italic text-dark shadow-inner position-relative overflow-hidden"
+                                                style="line-height: 1.8; font-size: 1.05rem;">
+                                                <i
+                                                    class="fa fa-quote-left position-absolute top-0 start-0 m-3 text-muted opacity-10 fs-1"></i>
+                                                <p class="mb-0 ps-3">"{{ i.consultation.remarks }}"</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                <div
+                                                    class="p-4 bg-white border border-light rounded-5 shadow-inner text-center card-glow-hover transition-300">
+                                                    <i
+                                                        class="fa fa-calendar-circle-check text-success fs-3 mb-3 d-block"></i>
+                                                    <small
+                                                        class="d-block text-muted x-small fw-extrabold ls-1 uppercase mb-1">VALIDITY</small>
+                                                    <span class="fw-extra-bold text-dark small ls-n1">180 DAYS
+                                                        POST-ISSUE</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div
+                                                    class="p-4 bg-white border border-light rounded-5 shadow-inner text-center card-glow-hover transition-300">
+                                                    <i class="fa fa-fingerprint text-info fs-3 mb-3 d-block"></i>
+                                                    <small
+                                                        class="d-block text-muted x-small fw-extrabold ls-1 uppercase mb-1">VERIFICATION</small>
+                                                    <span class="fw-extra-bold text-dark small ls-n1">AES-256
+                                                        SIGNED</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Regimen Payload -->
+                                    <div class="col-lg-7">
+                                        <div class="ps-lg-5 border-start-lg border-light">
+                                            <div class="d-flex align-items-center gap-2 mb-4">
+                                                <i class="fa fa-briefcase-medical text-primary small"></i>
+                                                <h6 class="text-muted text-uppercase fw-extra-bold x-small mb-0 ls-2">
+                                                    Neural Regimen Transmission</h6>
+                                            </div>
+
+                                            <div
+                                                class="p-5 bg-primary bg-opacity-5 rounded-5 border border-primary border-opacity-10 shadow-sm position-relative">
+                                                <div class="auth-mesh opacity-5"></div>
+                                                <p class="mb-0 text-dark fw-extra-bold lh-lg tracking-tight"
+                                                    style="white-space: pre-line; font-size: 1.25rem;">
+                                                    {{ i.medicines }}
+                                                </p>
+                                            </div>
+
+                                            <div class="mt-5 d-flex flex-wrap gap-3">
+                                                <div
+                                                    class="badge-modern d-flex align-items-center gap-3 bg-light px-4 py-3 rounded-pill border border-white shadow-sm transition-300 hover-translate-up">
+                                                    <i class="fa fa-clock-three text-primary"></i>
+                                                    <span class="text-dark fw-extrabold x-small ls-1 uppercase">Direct
+                                                        Adherence</span>
+                                                </div>
+                                                <div
+                                                    class="badge-modern d-flex align-items-center gap-3 bg-light px-4 py-3 rounded-pill border border-white shadow-sm transition-300 hover-translate-up">
+                                                    <i class="fa fa-utensils text-primary"></i>
+                                                    <span
+                                                        class="text-dark fw-extrabold x-small ls-1 uppercase">Post-Meal
+                                                        Load</span>
+                                                </div>
+                                                <div
+                                                    class="badge-modern d-flex align-items-center gap-3 bg-light px-4 py-3 rounded-pill border border-white shadow-sm transition-300 hover-translate-up">
+                                                    <i class="fa fa-droplet text-primary"></i>
+                                                    <span
+                                                        class="text-dark fw-extrabold x-small ls-1 uppercase">Hydration
+                                                        Active</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nexus Control Footer -->
+                            <div
+                                class="card-footer bg-dark bg-opacity-3 p-5 d-flex flex-column flex-md-row justify-content-between align-items-center border-0 gap-4">
+                                <div class="d-flex align-items-center gap-4">
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded-circle">
+                                        <i class="fa fa-microchip text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted fw-extrabold x-small ls-2 uppercase d-block">System
+                                            Verification</small>
+                                        <span class="text-dark fw-bold small">NODE-SYMMETRY AUTHENTICATED BY SMARTHEALTH
+                                            CORE</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3 w-100 w-md-auto">
+                                    {% if i.prescription_file %}
+                                    <a href="/media/{{ i.prescription_file }}" target="_blank"
+                                        class="btn btn-outline-primary rounded-pill px-5 py-3 fw-extra-bold ls-1 uppercase border-2 flex-grow-1 flex-md-grow-0 transition-500">
+                                        <i class="fa fa-download me-2"></i>View File
+                                    </a>
+                                    {% endif %}
+                                    <button
+                                        class="btn btn-outline-dark rounded-pill px-5 py-3 fw-extra-bold ls-1 uppercase border-2 flex-grow-1 flex-md-grow-0 transition-500"
+                                        onclick="window.print()">
+                                        <i class="fa fa-print me-2"></i>Export PDF
+                                    </button>
+                                    <button
+                                        class="btn btn-primary rounded-pill px-5 py-3 fw-extra-bold ls-1 uppercase shadow-2xl-primary flex-grow-1 flex-md-grow-0 transition-500 transform-active">
+                                        <i class="fa fa-paper-plane me-2"></i>Sync Pharmacy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="empty-vault-state text-center py-10 wow fadeInUp">
+                        <div class="card border-0 shadow-2xl p-10 rounded-5 glass-card max-w-700 mx-auto">
+                            <div class="bg-light rounded-circle p-5 d-inline-flex shadow-inner mb-5">
+                                <i class="fa fa-capsules-pill fa-5x text-muted opacity-25"></i>
+                            </div>
+                            <h2 class="display-6 fw-extra-bold text-dark mb-3">Registry Vacuum</h2>
+                            <p class="text-muted fs-5 max-w-500 mx-auto">Our clinical vault is currently void of
+                                pharmaceutical records. Transmissions materialize post-professional session.</p>
+                            <a href="/predict"
+                                class="btn btn-primary px-5 py-4 rounded-pill shadow-2xl-primary transform-active fw-extra-bold ls-1 uppercase mt-5">
+                                <i class="fa fa-stethoscope me-3"></i>INITIATE CLINICAL PROTOCOL
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background: #fbfcfe;
+    }
+
+    .fw-extra-bold {
+        font-weight: 800;
+    }
+
+    .fw-extrabold {
+        font-weight: 800;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .ls-1 {
+        letter-spacing: 1px;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .ls-n1 {
+        letter-spacing: -1px;
+    }
+
+    .tracking-tight {
+        letter-spacing: -1px;
+    }
+
+    .max-w-600 {
+        max-width: 600px;
+    }
+
+    .max-w-700 {
+        max-width: 700px;
+    }
+
+    .max-w-500 {
+        max-width: 500px;
+    }
+
+    .h-60 {
+        height: 60px;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    }
+
+    .shadow-2xl-primary {
+        box-shadow: 0 20px 40px -10px rgba(13, 110, 253, 0.4);
+    }
+
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .prescription-node {
+        transition: 0.5s;
+    }
+
+    .hover-lift-horizontal:hover {
+        transform: translateX(10px) scale(1.01);
+        box-shadow: 0 45px 90px -20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .auth-mesh {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .transform-5deg {
+        transform: rotate(4deg);
+    }
+
+    .backdrop-blur {
+        backdrop-filter: blur(10px);
+    }
+
+    .hover-translate-up:hover {
+        transform: translateY(-8px);
+        background: #fff !important;
+        border-color: var(--bs-primary) !important;
+    }
+
+    .card-glow-hover:hover {
+        background: #fff !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    @media (min-width: 992px) {
+        .border-start-lg {
+            border-left: 2px solid #f1f5f9 !important;
+        }
+    }
+
+    .py-10 {
+        padding: 100px 0;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .transition-300 {
+        transition: 0.3s;
+    }
+
+    .transition-500 {
+        transition: 0.5s;
+    }
+
+    .transform-active:active {
+        transform: scale(0.96);
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: .5;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @media print {
+
+        .header,
+        .footer,
+        .btn,
+        .d-none-print,
+        .vault-status,
+        .vault-header-text p {
+            display: none !important;
+        }
+
+        .min-vh-100 {
+            min-height: auto !important;
+            padding: 0 !important;
+        }
+
+        .prescription-node {
+            margin-bottom: 50px !important;
+        }
+
+        .card {
+            box-shadow: none !important;
+            border: 2px solid #000 !important;
+        }
+
+        .bg-dark {
+            background: #000 !important;
+            color: #fff !important;
+        }
+
+        .text-white-50 {
+            color: #666 !important;
+        }
+
+        .shadow-inner {
+            box-shadow: none !important;
+            border: 1px solid #ccc !important;
+        }
+    }
+</style>
+
+{% include 'footer.html' %}

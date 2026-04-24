@@ -1,0 +1,135 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center wow fadeInUp mb-5" data-wow-delay="0.1s">
+            <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                <i class="fa fa-history text-primary me-2 small"></i>
+                <span class="text-primary fw-bold x-small uppercase ls-2">Clinical Life-Cycle History</span>
+            </div>
+            <h1 class="display-5 fw-extra-bold text-dark mt-2">Medical History: {{ patient.name }}</h1>
+            <p class="text-muted fs-5 mx-auto max-w-600">Comprehensive timeline of biological predictions, clinical consultations, and pharmaceutical regimens.</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Left Column: Patient Profile & Statistics -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-2xl rounded-5 overflow-hidden sticky-top" style="top: 100px;">
+                    <div class="p-5 text-center text-white" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                        <div class="bg-white rounded-circle p-4 d-inline-flex mb-4 shadow-lg">
+                            <i class="fa fa-user-shield text-primary fs-2"></i>
+                        </div>
+                        <h3 class="text-white fw-extra-bold mb-1">{{ patient.name }}</h3>
+                        <span class="badge bg-primary rounded-pill px-3 py-1 x-small uppercase ls-1">#NODE-PX-{{ patient.id|add:1500 }}</span>
+                    </div>
+                    <div class="card-body p-5">
+                        <div class="d-flex flex-column gap-4">
+                            <div class="p-4 bg-light rounded-4 border-start border-primary border-4">
+                                <small class="text-muted x-small fw-bold uppercase ls-1 d-block mb-1">Biological Metrics</small>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-dark">Age: {{ patient.age }}</span>
+                                    <span class="fw-bold text-dark text-capitalize">Gender: {{ patient.gender }}</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-light rounded-4 border-start border-info border-4">
+                                <small class="text-muted x-small fw-bold uppercase ls-1 d-block mb-1">Clinic Contact</small>
+                                <span class="fw-bold text-dark d-block">{{ patient.email }}</span>
+                                <span class="fw-bold text-dark d-block">+91 {{ patient.phone }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Timeline -->
+            <div class="col-lg-8">
+                <!-- Consultations & Prescriptions -->
+                <div class="mb-5">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <i class="fa fa-file-medical text-primary fs-4"></i>
+                        <h4 class="fw-extra-bold text-dark mb-0">Clinical Consultations</h4>
+                    </div>
+                    
+                    {% for item in reports %}
+                    <div class="card border-0 shadow-sm rounded-5 mb-4 overflow-hidden transition-300 hover-translate-up">
+                        <div class="card-header bg-dark p-4 d-flex justify-content-between align-items-center border-0">
+                            <div>
+                                <small class="text-white-50 x-small fw-bold ls-1 uppercase d-block">Consultant</small>
+                                <span class="text-white fw-bold">Dr. {{ item.consultation.doctor.name }}</span>
+                            </div>
+                            <span class="badge bg-primary rounded-pill px-3 py-1 x-small">{{ item.consultation.id|add:2026 }}-03-18</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-3">
+                                <small class="text-muted x-small fw-bold uppercase ls-1 d-block mb-2">Remarks</small>
+                                <p class="text-dark fw-medium mb-0 italic">"{{ item.consultation.remarks }}"</p>
+                            </div>
+                            {% if item.prescription %}
+                            <div class="p-3 bg-light rounded-4 border border-success border-opacity-10">
+                                <small class="text-success x-small fw-bold uppercase ls-1 d-block mb-2">Prescription</small>
+                                <p class="text-dark fw-bold mb-2">{{ item.prescription.medicines }}</p>
+                                {% if item.prescription.prescription_file %}
+                                <a href="/media/{{ item.prescription.prescription_file }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3 py-1 x-small fw-bold">
+                                    <i class="fa fa-download me-1"></i> VIEW FILE
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="p-5 text-center bg-white rounded-5 border border-dashed text-muted">No consultations logged yet.</div>
+                    {% endfor %}
+                </div>
+
+                <!-- AI Prediction History -->
+                <div>
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <i class="fa fa-brain-circuit text-info fs-4"></i>
+                        <h4 class="fw-extra-bold text-dark mb-0">AI Prediction History</h4>
+                    </div>
+                    
+                    <div class="row g-4">
+                        {% for p in predictions %}
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-5 h-100 overflow-hidden bg-white border-top border-info border-4">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-1 x-small fw-bold">{{ p.date|date:"M d, Y" }}</span>
+                                        <span class="fw-extra-bold text-success">{{ p.confidence }}%</span>
+                                    </div>
+                                    <h5 class="fw-extra-bold text-dark mb-2">{{ p.predicted_disease }}</h5>
+                                    <p class="text-muted small mb-3">Symptoms: <span class="text-dark fw-medium">{{ p.symptoms }}</span></p>
+                                    <div class="p-3 bg-light rounded-3">
+                                        <small class="text-muted x-small fw-bold uppercase d-block mb-1">Recommended Meds</small>
+                                        <p class="small text-dark mb-0">{{ p.medication }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12">
+                            <div class="p-5 text-center bg-white rounded-5 border border-dashed text-muted">No prediction history identified.</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft { background: #fbfcfe; }
+    .fw-extra-bold { font-weight: 800; }
+    .x-small { font-size: 0.65rem; }
+    .ls-1 { letter-spacing: 1px; }
+    .ls-2 { letter-spacing: 2px; }
+    .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
+    .italic { font-style: italic; }
+    .transition-300 { transition: 0.3s; }
+    .hover-translate-up:hover { transform: translateY(-8px); }
+</style>
+
+{% include 'footer.html' %}

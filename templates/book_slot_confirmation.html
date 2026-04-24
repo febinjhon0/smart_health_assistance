@@ -1,0 +1,384 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-soft-blue min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center wow fadeInUp mb-5" data-wow-delay="0.1s">
+            <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                <i class="fa fa-stethoscope text-primary me-2 x-small"></i>
+                <span class="text-primary fw-bold x-small uppercase ls-2">Slot Allocation</span>
+            </div>
+            <h1 class="display-6 fw-900 text-dark mt-2">Appointment Confirmation</h1>
+            <p class="text-muted fs-6 mx-auto max-w-600">Review your clinical engagement details before finalizing your consultation synchronization.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="card border-0 shadow-premium overflow-hidden main-auth-card">
+                    <div class="row g-0">
+                        <!-- Left Panel: Profile Visualization -->
+                        <div class="col-lg-5 profile-visual-panel position-relative p-5 text-center text-white d-flex flex-column align-items-center justify-content-center">
+                            <div class="mesh-overlay"></div>
+                            <div class="floating-blobs">
+                                <div class="blob blob-1"></div>
+                                <div class="blob blob-2"></div>
+                            </div>
+
+                            <!-- Profile Container -->
+                            <div class="position-relative mb-4 wow zoomIn" data-wow-delay="0.3s">
+                                <div class="profile-avatar-wrapper shadow-2xl">
+                                    <img src="/media/{{ doctor.image }}" 
+                                         onerror="this.src='https://ui-avatars.com/api/?name={{ doctor.name }}&background=2563eb&color=fff&size=200'"
+                                         class="w-100 h-100 object-fit-cover"
+                                         alt="{{ doctor.name }}">
+                                </div>
+                                <div class="status-indicator-ring">
+                                    <div class="status-dot-pulse"></div>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-content wow fadeInUp" data-wow-delay="0.5s">
+                                <h3 class="fw-800 text-white mb-1">{{ doctor.name }}</h3>
+                                <div class="badge bg-white bg-opacity-20 rounded-pill px-3 py-1 x-small fw-bold ls-1 uppercase mb-4">
+                                    {{ doctor.specialization }}
+                                </div>
+
+                                <div class="certification-card p-3 rounded-4 backdrop-blur border border-white border-opacity-10">
+                                    <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+                                        <i class="fa fa-shield-halved text-warning x-small"></i>
+                                        <small class="fw-bold ls-1 x-small uppercase">Verified Practitioner</small>
+                                    </div>
+                                    <p class="x-small mb-0 text-white-opacity-70">Authenticated specialist in diagnostic intelligence and patient-centric healthcare systems.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Interactive Form/Success -->
+                        <div class="col-lg-7 p-5 bg-white d-flex flex-column justify-content-center">
+                            <div class="px-md-3">
+                                {% if message %}
+                                <!-- Success State UI -->
+                                <div class="success-manifest text-center wow scaleIn">
+                                    <div class="success-icon-container mb-4">
+                                        <div class="confetti-effect"></div>
+                                        <div class="success-circle shadow-lg">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <h2 class="fw-900 text-dark mb-2">{{ message }}</h2>
+                                    <p class="text-muted small mb-5">Your medical appointment is confirmed and logged in our system.</p>
+
+                                    <!-- Digital Receipt Card -->
+                                    <div class="receipt-card mb-5 p-4 rounded-5 border-0 shadow-inner">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-6 border-end border-light-gray">
+                                                <small class="receipt-label">Access Token</small>
+                                                <div class="h4 fw-900 text-primary mb-0">#{{ token }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <small class="receipt-label">Status</small>
+                                                <div class="d-flex align-items-center gap-2 justify-content-center">
+                                                    <div class="dot-sm bg-success"></div>
+                                                    <span class="fw-bold x-small text-dark ls-1 uppercase">Confirmed</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mt-4 pt-3 border-top border-light-gray">
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="x-small text-muted fw-bold uppercase ls-1">Engage Date</span>
+                                                    <span class="x-small text-dark fw-800">{{ date|date:"M d, Y" }}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="x-small text-muted fw-bold uppercase ls-1">Temporal Window</span>
+                                                    <span class="x-small text-dark fw-800">{{ time }}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="x-small text-muted fw-bold uppercase ls-1">Location</span>
+                                                    <span class="x-small text-dark fw-800">{{ location }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid gap-3">
+                                        <a href="/appointments/" class="btn btn-primary rounded-pill py-3 fw-bold shadow-soft transform-active">
+                                            <i class="fa fa-calendar-alt me-2"></i>View All Bookings
+                                        </a>
+                                        <a href="/home/" class="text-muted x-small fw-bold text-decoration-none hover-primary transition-200">
+                                            Return to Dashboard
+                                        </a>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <!-- Confirmation Form UI -->
+                                <div class="confirmation-header mb-5">
+                                    <h2 class="fw-900 text-dark mb-2">Final Clearance</h2>
+                                    <p class="text-muted small">Verify the clinical coordinates before execution.</p>
+                                </div>
+
+                                <div class="coordinates-matrix mb-5">
+                                    <div class="matrix-item p-4 mb-3 rounded-5 bg-primary bg-opacity-5 border-start border-primary border-4 transform-hover">
+                                        <div class="d-flex align-items-center gap-4">
+                                            <div class="matrix-icon shadow-sm bg-white text-primary rounded-4">
+                                                <i class="fa fa-calendar-day"></i>
+                                            </div>
+                                            <div>
+                                                <small class="receipt-label">Engagement Date</small>
+                                                <h5 class="fw-800 text-dark mb-0">{{ slot.date|date:"l, F d, Y" }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="matrix-item p-4 mb-3 rounded-5 bg-accent bg-opacity-5 border-start border-accent border-4 transform-hover" style="--accent: #10b981;">
+                                        <div class="d-flex align-items-center gap-4">
+                                            <div class="matrix-icon shadow-sm bg-white text-accent rounded-4">
+                                                <i class="fa fa-clock"></i>
+                                            </div>
+                                            <div>
+                                                <small class="receipt-label text-accent opacity-75">Temporal Window</small>
+                                                <h5 class="fw-800 text-dark mb-0">{{ slot.time }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="matrix-item p-4 rounded-5" style="background: rgba(15, 23, 42, 0.04); border-left: 4px solid #0f172a;">
+                                        <div class="d-flex align-items-center gap-4">
+                                            <div class="matrix-icon shadow-sm bg-white text-dark rounded-4">
+                                                <i class="fa fa-location-dot"></i>
+                                            </div>
+                                            <div>
+                                                <small class="receipt-label text-dark opacity-75">Clinical Hub</small>
+                                                <h5 class="fw-800 text-dark mb-0">{{ slot.location }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form action="/book_slot/" method="POST" id="booking-confirm-form" class="wow fadeInUp" data-wow-delay="0.6s">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="slot_id" value="{{ slot.id }}">
+
+                                    <button type="submit" class="btn btn-dark w-100 py-4 rounded-pill shadow-premium fw-900 ls-1 transform-active h-70 d-flex align-items-center justify-content-center gap-3 submit-btn">
+                                        <span>CONFIRM & INITIALIZE</span>
+                                        <i class="fa fa-bolt-lightning text-warning glow-icon"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+
+                                <div class="mt-5 pt-4 border-top border-light-gray text-center security-footer">
+                                    <div class="d-flex align-items-center justify-content-center gap-4 mb-4">
+                                        <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-light">
+                                            <i class="fa fa-fingerprint text-success x-small"></i>
+                                            <small class="x-small fw-bold text-muted uppercase ls-1">Secure</small>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-light">
+                                            <i class="fa fa-shield-check text-primary x-small"></i>
+                                            <small class="x-small fw-bold text-muted uppercase ls-1">Verified</small>
+                                        </div>
+                                    </div>
+                                    {% if not message %}
+                                    <a href="/view_slots/?doctor_id={{ doctor.id }}" class="text-muted x-small fw-bold ls-1 uppercase text-decoration-none border-bottom border-transparent pb-1 hover-dark-text transition-300">
+                                        <i class="fa fa-chevron-left me-2"></i>Modify Selection
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --premium-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.15);
+        --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        --primary: #2563eb;
+        --accent: #10b981;
+    }
+
+    .bg-soft-blue { background: #f0f7ff; }
+    .fw-800 { font-weight: 800; }
+    .fw-900 { font-weight: 900; }
+    .ls-1 { letter-spacing: 0.5px; }
+    .ls-2 { letter-spacing: 2px; }
+    .x-small { font-size: 0.7rem; }
+    .h-70 { height: 70px; }
+    .max-w-600 { max-width: 600px; }
+
+    .main-auth-card {
+        border-radius: 40px;
+        box-shadow: var(--premium-shadow);
+    }
+
+    /* ─── Profile Visual Panel ─── */
+    .profile-visual-panel {
+        background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+        overflow: hidden;
+    }
+
+    .mesh-overlay {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+        opacity: 0.4;
+    }
+
+    .floating-blobs .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.2;
+        z-index: 0;
+    }
+
+    .blob-1 { width: 300px; height: 300px; background: #60a5fa; top: -100px; right: -100px; animation: float 10s infinite alternate; }
+    .blob-2 { width: 250px; height: 250px; background: #34d399; bottom: -50px; left: -50px; animation: float 15s infinite alternate-reverse; }
+
+    @keyframes float {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(30px, 30px) scale(1.1); }
+    }
+
+    .profile-avatar-wrapper {
+        width: 170px;
+        height: 170px;
+        border-radius: 35% 65% 65% 35% / 35% 35% 65% 65%;
+        overflow: hidden;
+        border: 6px solid rgba(255, 255, 255, 0.2);
+        background: #fff;
+        position: relative;
+        z-index: 2;
+        transition: 0.5s;
+        animation: morphing 8s infinite;
+    }
+
+    @keyframes morphing {
+        0% { border-radius: 35% 65% 65% 35% / 35% 35% 65% 65%; }
+        50% { border-radius: 65% 35% 35% 65% / 65% 65% 35% 35%; }
+        100% { border-radius: 35% 65% 65% 35% / 35% 35% 65% 65%; }
+    }
+
+    .status-indicator-ring {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
+        background: #fff;
+        border-radius: 50%;
+        padding: 3px;
+        z-index: 3;
+    }
+
+    .status-dot-pulse {
+        width: 100%;
+        height: 100%;
+        background: #10b981;
+        border-radius: 50%;
+        animation: statusPulse 2s infinite;
+    }
+
+    @keyframes statusPulse {
+        0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+        70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .backdrop-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .white-opacity-70 { color: rgba(255, 255, 255, 0.7); }
+
+    /* ─── Right Panel Styling ─── */
+    .receipt-card, .matrix-item {
+        background: #f8fafc;
+        border: 1px solid #f1f5f9;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .matrix-item:hover {
+        background: #fff;
+        box-shadow: var(--soft-shadow);
+        transform: translateX(5px);
+    }
+
+    .receipt-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .matrix-icon {
+        width: 54px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .dot-sm { width: 8px; height: 8px; border-radius: 50%; }
+    .border-light-gray { border-color: #f1f5f9 !important; }
+
+    /* ─── Success Animation ─── */
+    .success-circle {
+        width: 80px;
+        height: 80px;
+        background: #10b981;
+        color: white;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+        0% { transform: scale(0); }
+        80% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .submit-btn {
+        transition: 0.3s;
+        border: none;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .submit-btn:hover {
+        background: #000;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .glow-icon {
+        animation: neonGlow 1.5s infinite alternate;
+    }
+
+    @keyframes neonGlow {
+        from { filter: drop-shadow(0 0 2px #fbbf24); }
+        to { filter: drop-shadow(0 0 8px #fbbf24); }
+    }
+
+    .transform-active:active { transform: scale(0.97); }
+    .transition-200 { transition: 0.2s; }
+    .hover-primary:hover { color: var(--primary) !important; }
+    .border-transparent { border-color: transparent; }
+    .hover-dark-text:hover { color: #000 !important; border-color: #000 !important; }
+
+    /* Custom Scrollbar for better aesthetics */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
+
+{% include 'footer.html' %}

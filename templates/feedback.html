@@ -1,0 +1,242 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100">
+    <div class="container">
+        <!-- Ops Support Header -->
+        <div class="row justify-content-center mb-10 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-lg-10 text-center">
+                <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                    <i class="fa fa-headset text-primary me-3 small"></i>
+                    <span class="text-primary fw-extra-bold x-small uppercase ls-2">Clinical Operations Support</span>
+                </div>
+                <h1 class="display-3 fw-extra-bold text-dark mt-2 mb-0 tracking-tighter">Support Terminal</h1>
+                <p class="text-muted mt-2 fs-5 mx-auto max-w-700">Submit clinical queries, report system discordance, or
+                    request protocol assistance from the centralized authority.</p>
+            </div>
+        </div>
+
+        <div class="row g-5">
+            <!-- Transmission Form -->
+            <div class="col-lg-5 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="card border-0 shadow-2xl rounded-5 overflow-hidden bg-white h-100">
+                    <div class="bg-dark p-5 position-relative overflow-hidden">
+                        <div class="auth-mesh opacity-10"></div>
+                        <h4 class="text-white fw-extra-bold mb-0 position-relative z-index-2">Initiate Transmission</h4>
+                        <p class="text-white-50 x-small fw-bold ls-1 uppercase mt-2 position-relative z-index-2">
+                            Response Latency: <span
+                                class="text-success pulse-ring d-inline-block rounded-circle bg-success me-1"
+                                style="width: 8px; height: 8px;"></span> Low</p>
+                    </div>
+                    <div class="card-body p-5 p-lg-6">
+                        <form action="/feedback/" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-5">
+                                <label
+                                    class="form-label fw-extra-bold text-dark x-small ls-1 uppercase mb-3">Classification
+                                    Subject</label>
+                                <div
+                                    class="input-auth-group d-flex align-items-center bg-light rounded-4 px-4 border shadow-inner transition-300">
+                                    <i class="fa fa-tag text-primary me-3 small"></i>
+                                    <input type="text"
+                                        class="form-control bg-transparent border-0 shadow-none py-4 text-dark fw-medium"
+                                        name="subject" placeholder="E.g. Diagnostic Sync Issue" required>
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <label class="form-label fw-extra-bold text-dark x-small ls-1 uppercase mb-3">Detailed
+                                    Payload</label>
+                                <textarea class="form-control bg-light border p-4 shadow-inner fw-medium" name="message"
+                                    rows="5" placeholder="Provision full context of your query or report..." required
+                                    style="border-radius: 24px; font-size: 1rem;"></textarea>
+                            </div>
+                            <button
+                                class="btn btn-primary w-100 py-4 rounded-pill shadow-2xl-primary fw-extra-bold ls-1 uppercase transform-active h-60 d-flex align-items-center justify-content-center gap-3">
+                                DISPATCH TO OPS <i class="fa fa-paper-plane text-warning"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transmission History -->
+            <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.2s">
+                <div class="d-flex align-items-center justify-content-between mb-5">
+                    <h4 class="fw-extra-bold text-dark mb-0 tracking-tight">Status Matrix</h4>
+                    <span
+                        class="badge  bg-opacity-10 text-primary px-3 py-2 rounded-pill x-small fw-bold ls-1">
+                        {{ feedbacks|length }} LOGGED</span>
+                </div>
+
+                <div class="feedback-scroll-terminal pe-2" style="max-height: 650px; overflow-y: auto;">
+                    {% for f in feedbacks %}
+                    <div
+                        class="card border-0 shadow-sm rounded-5 mb-4 bg-white transition-300 hover-lift border-start border-4 {% if f.response %}border-success{% else %}border-warning{% endif %}">
+                        <div class="card-body p-5">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h5 class="fw-extra-bold text-dark mb-1">{{ f.subject }}</h5>
+                                    <small class="text-muted fw-bold x-small uppercase ls-1">
+                                    {{ f.date|date:"F d, Y | H:i" }}</small>
+                                </div>
+                                {% if f.response %}
+                                <span
+                                    class="badge bg-opacity-10 text-success rounded-pill px-3 py-2 x-small fw-extrabold ls-1 uppercase">Resolved</span>
+                                {% else %}
+                                <span
+                                    class="badge  bg-opacity-10 text-warning rounded-pill px-3 py-2 x-small fw-extrabold ls-1 uppercase">Processing</span>
+                                {% endif %}
+                            </div>
+                            <p class="text-muted mb-4 fs-6 italic">"{{ f.message }}"</p>
+
+                            {% if f.response %}
+                            <div class="mt-4 p-4 rounded-4 bg-dark text-white position-relative">
+                                <div class="auth-mesh opacity-10"></div>
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="fa fa-reply text-primary small"></i>
+                                    <small class="fw-extra-bold ls-2 uppercase x-small">Official Resolution</small>
+                                </div>
+                                <p class="mb-0 small text-white-50 fw-medium lh-lg">{{ f.response }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-10 bg-white border-dashed border-3 border-light rounded-5 shadow-inner">
+                        <i class="fa fa-satellite-dish fa-4x text-muted opacity-25 mb-4"></i>
+                        <h4 class="fw-extra-bold text-dark mb-2">No Active Transmissions</h4>
+                        <p class="text-muted x-small ls-1 uppercase">Your communication log with Clinical Ops is clear.
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background: #fbfcfe;
+    }
+
+    .fw-extra-bold {
+        font-weight: 800;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .ls-1 {
+        letter-spacing: 1px;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .tracking-tighter {
+        letter-spacing: -2px;
+    }
+
+    .tracking-tight {
+        letter-spacing: -1px;
+    }
+
+    .max-w-700 {
+        max-width: 700px;
+    }
+
+    .h-60 {
+        height: 60px;
+    }
+
+    .mb-10 {
+        margin-bottom: 70px;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    }
+
+    .shadow-2xl-primary {
+        box-shadow: 0 20px 40px -10px rgba(13, 110, 253, 0.35);
+    }
+
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .input-auth-group:focus-within {
+        background: white !important;
+        border-color: var(--bs-primary) !important;
+        box-shadow: 0 10px 30px -10px rgba(13, 110, 253, 0.2) !important;
+    }
+
+    .auth-mesh {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(rgba(13, 110, 253, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .pulse-ring {
+        animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+        0% {
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+
+        50% {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .feedback-scroll-terminal::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .feedback-scroll-terminal::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .feedback-scroll-terminal::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+    }
+
+    .feedback-scroll-terminal::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .transform-active:active {
+        transform: scale(0.97);
+    }
+
+    .transition-300 {
+        transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .italic {
+        font-style: italic;
+    }
+</style>
+
+{% include 'footer.html' %}

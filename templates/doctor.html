@@ -1,0 +1,122 @@
+{% include 'header.html' %}
+
+<div class="auth-section py-10 bg-light-soft min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                    <div class="text-center mb-5">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-4"
+                            style="width: 80px; height: 80px;">
+                            <i class="fa fa-user-md text-primary fs-1"></i>
+                        </div>
+                        <h2 class="fw-bold text-dark mb-2">Doctor Registration</h2>
+                        <p class="text-muted">Join our professional medical network</p>
+                    </div>
+
+                    <form action="/adddoctor/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            <div class="col-md-12">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Full Name</label>
+                                <input type="text" name="name"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="Dr. Alexander Pierce" required>
+                            </div>
+
+                            <div class="col-md-7">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Email Address</label>
+                                <input type="email" name="email"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="faculty@clinical.ai" required>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Phone Number</label>
+                                <input type="tel" name="phone" pattern="[0-9]{10}"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="9876543210" required>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Specialization</label>
+                                <input type="text" name="specialization"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="E.g. Cardiology" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Experience
+                                    (Yrs)</label>
+                                <input type="number" name="experience"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="10" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Password</label>
+                                <input type="password" name="password"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="••••••••" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Profile Photo</label>
+                                <input type="file" name="image"
+                                    class="form-control py-2 rounded-3 border-light-dark shadow-none" required>
+                            </div>
+
+                            <div class="col-12 mt-5">
+                                <button type="submit"
+                                    class="btn btn-primary w-100 py-3 rounded-3 fw-bold shadow-sm transition-300 transform-active">
+                                    REGISTER AS DOCTOR
+                                </button>
+                                <p class="text-center mt-4 small text-muted italic">
+                                    Note: Your application will be reviewed and verified by our medical board before
+                                    approval.
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background-color: #f8fafc;
+    }
+
+    .border-light-dark {
+        border: 1px solid #e2e8f0;
+    }
+
+    .border-light-dark:focus {
+        border-color: #3b82f6;
+        background-color: #fff;
+    }
+
+    .ls-1 {
+        letter-spacing: 0.5px;
+    }
+
+    .py-10 {
+        padding: 80px 0;
+    }
+
+    .transform-active:active {
+        transform: scale(0.98);
+    }
+
+    .transition-300 {
+        transition: all 0.3s ease;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+</style>
+
+{% include 'footer.html' %}

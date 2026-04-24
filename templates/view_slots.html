@@ -1,0 +1,111 @@
+{% include 'header.html' %}
+{% load static %}
+
+<div style="background:#f8f9fa; min-height:100vh;" class="py-5">
+<div class="container">
+
+    <!-- Header -->
+    <div class="mb-5">
+        <h2 class="fw-bold text-dark mb-1"><i class="fa fa-calendar-check text-primary me-2"></i>Available Appointments</h2>
+        <p class="text-muted mb-0">Choose a convenient time slot to book your consultation with Dr. {{ doctor.name }}.</p>
+    </div>
+
+    <!-- Doctor Summary Card -->
+    <div class="card border-0 shadow-sm rounded-4 mb-5 p-4">
+        <div class="d-flex align-items-center gap-4 flex-wrap">
+            <img src="/media/{{ doctor.image }}" class="rounded-circle border border-3 border-white shadow" style="width:80px;height:80px;object-fit:cover;" alt="{{ doctor.name }}">
+            <div class="flex-grow-1">
+                <h4 class="fw-bold text-dark mb-0">Dr. {{ doctor.name }}</h4>
+                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 mt-1">{{ doctor.specialization }}</span>
+                <div class="d-flex gap-3 mt-2" style="font-size:0.82rem; color:#6b7280;">
+                    <span><i class="fa fa-briefcase-medical me-1 text-primary"></i>{{ doctor.experience }}+ Years</span>
+                    <span><i class="fa fa-star me-1 text-warning"></i>4.9 Rating</span>
+                    <span><i class="fa fa-shield-check me-1 text-success"></i>Verified</span>
+                    <span><i class="fa fa-calendar me-1 text-primary"></i>{{ slots|length }} Slot(s) Available</span>
+                </div>
+            </div>
+            <a href="/viewdoctor/" class="btn btn-light border rounded-pill px-4 py-2 fw-semibold" style="font-size:0.85rem;">
+                <i class="fa fa-arrow-left me-1"></i> Back to Doctors
+            </a>
+        </div>
+    </div>
+
+    <!-- Available Slots -->
+    <h5 class="fw-bold text-dark mb-4">Select a Time Slot</h5>
+    <div class="row g-3">
+        {% for slot in slots %}
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100" style="transition:0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#2563eb';this.style.boxShadow='0 8px 24px rgba(37,99,235,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:60px;height:60px;">
+                    <i class="fa fa-clock text-primary fs-4"></i>
+                </div>
+                <h5 class="fw-bold text-dark mb-1">{{ slot.time }}</h5>
+                <p class="text-muted mb-2" style="font-size:0.82rem;">
+                    <i class="fa fa-calendar-day text-primary me-1"></i>{{ slot.date|date:"D, d M Y" }}
+                </p>
+                <p class="text-muted mb-3" style="font-size:0.82rem;">
+                    <i class="fa fa-map-marker-alt text-danger me-1"></i>{{ slot.location }}
+                </p>
+                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1 mb-3 d-block" style="font-size:0.72rem;">Available</span>
+                <a href="/book_slot/?slot_id={{ slot.id }}"
+                    class="btn btn-primary w-100 rounded-pill py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" style="font-size:0.85rem;">
+                    <i class="fa fa-check-circle"></i> Book This Slot
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+                <i class="fa fa-calendar-xmark fa-3x text-muted opacity-25 mb-3"></i>
+                <h5 class="fw-bold text-dark">No Slots Available</h5>
+                <p class="text-muted mb-4">Dr. {{ doctor.name }} has no available slots at the moment. Please check back later.</p>
+                <a href="/viewdoctor/" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">
+                    <i class="fa fa-arrow-left me-2"></i>Browse Other Doctors
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Patient Reviews Section -->
+    {% if reviews %}
+    <div class="mt-5">
+        <h5 class="fw-bold text-dark mb-4"><i class="fa fa-star text-warning me-2"></i>Patient Reviews ({{ reviews|length }})</h5>
+        <div class="row g-3">
+            {% for review in reviews %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width:42px;height:42px;font-size:0.9rem;">
+                            {{ review.patient.name|first|upper }}
+                        </div>
+                        <div>
+                            <div class="fw-semibold text-dark" style="font-size:0.9rem;">{{ review.patient.name }}</div>
+                            <div class="text-muted" style="font-size:0.72rem;">{{ review.date|date:"d M Y" }}</div>
+                        </div>
+                        <div class="ms-auto">
+                            {% for star in "12345" %}
+                            <i class="fa fa-star {% if forloop.counter <= review.rating|add:0 %}text-warning{% else %}text-muted opacity-25{% endif %}" style="font-size:11px;"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="text-muted mb-0" style="font-size:0.85rem; line-height:1.6;">{{ review.comments }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if request.session.userid %}
+    <div class="mt-4 text-end">
+        <a href="/add_review/?doctor_id={{ doctor.id }}" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold" style="font-size:0.85rem;">
+            <i class="fa fa-star me-2"></i>Write a Review
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+</div>
+
+{% include 'footer.html' %}

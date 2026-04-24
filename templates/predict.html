@@ -1,0 +1,385 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100">
+    <div class="container">
+        <!-- Premium Diagnostic Header -->
+        <div class="text-center wow fadeInUp mb-5" data-wow-delay="0.1s">
+            <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                <i class="fa fa-stethoscope text-primary me-2 small"></i>
+                <span class="text-primary fw-bold x-small uppercase ls-2">Health AI</span>
+            </div>
+            <h1 class="display-4 fw-extra-bold text-dark mt-2">Disease Check</h1>
+            <p class="text-muted mx-auto mt-3 fs-5 max-w-800">Tell us how you feel, and our AI will help identify
+                potential health issues and suggest what to do next.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-12">
+                <div class="card border-0 shadow-2xl rounded-5 overflow-hidden glass-card">
+                    <!-- Symptom Panel Header -->
+                    <div class="px-5 pt-4 pb-0 border-bottom d-flex align-items-center gap-3">
+                        <div class="trigger-icon shadow-sm">
+                            <i class="fa fa-notes-medical"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-extra-bold text-uppercase x-small ls-1 text-primary">Symptom Check
+                            </h6>
+                            <small class="text-muted fw-bold x-small">Type your symptoms below</small>
+                        </div>
+                    </div>
+
+                    <div class="p-4 p-md-5 bg-dot-pattern" id="diagnostic-tab-content">
+                        <!-- Symptom Panel -->
+                        <div id="symptom-pane">
+                            <div class="row g-5 align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center gap-3 mb-4">
+                                        <div class="bg-primary rounded-circle p-2 shadow-lg"><i
+                                                class="fa fa-keyboard text-white small"></i></div>
+                                        <h3 class="fw-extra-bold text-dark mb-0">Describe Symptoms</h3>
+                                    </div>
+                                    <p class="text-muted mb-5 fs-6 lh-lg">Type out your symptoms clearly. Our AI will
+                                        compare them against thousands of medical cases to find the most likely match.
+                                    </p>
+
+                                    <form action="/predict_disease/" method="POST" id="symptom-form">
+                                        {% csrf_token %}
+                                        <div class="position-relative mb-5">
+                                            <textarea class="form-control rounded-5 shadow-inner border-2 p-5 fw-medium"
+                                                name="symptoms" id="symptoms-input" style="height: 220px; resize: none;"
+                                                placeholder="Describe Condition: e.g. acute headache, localized thoracic pain..."></textarea>
+
+                                            <!-- AI Voice Trigger -->
+                                            <div class="position-absolute bottom-0 end-0 m-4">
+                                                <button type="button" id="start-voice"
+                                                    class="btn btn-primary rounded-circle shadow-lg pulse-blue h-60 w-60 d-flex align-items-center justify-content-center">
+                                                    <i class="fa fa-microphone fs-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="btn btn-dark w-100 py-4 rounded-pill shadow-2xl fw-extra-bold ls-1 transform-active h-60 d-flex align-items-center justify-content-center gap-3">
+                                            CHECK NOW <i class="fa fa-arrow-right text-warning"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    {% if result %}
+                                    <div
+                                        class="diagnosis-card-premium p-5 rounded-5 shadow-2xl animate__animated animate__fadeInRight">
+                                        <div class="d-flex align-items-center justify-content-between mb-5">
+                                            <div
+                                                class="p-3 bg-white bg-opacity-20 rounded-4 border border-white border-opacity-10">
+                                                <i class="fa fa-stethoscope text-white display-6"></i>
+                                            </div>
+                                            <div class="text-end">
+                                                <span
+                                                    class="badge bg-white text-dark rounded-pill px-3 py-2 fw-extra-bold x-small uppercase ls-1">POSSIBLE
+                                                    MATCH</span>
+                                            </div>
+                                        </div>
+
+                                        <h2 class="display-5 text-white fw-extra-bold mb-1">{{ result }}</h2>
+                                        <p class="text-white-50 x-small fw-bold ls-2 uppercase mb-5">AI PREDICTION
+                                            RESULT</p>
+
+                                        <div
+                                            class="p-4 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 mb-5">
+                                            <div class="d-flex justify-content-between mb-3 align-items-end">
+                                                <div>
+                                                    <small class="text-white-50 d-block x-small fw-bold">CHANCE</small>
+                                                    <h3 class="text-white fw-extra-bold mb-0 lh-1">{{ confidence }}<span
+                                                            class="small">%</span></h3>
+                                                </div>
+                                                <div class="text-end">
+                                                    <span class="text-white x-small fw-bold">READY</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress bg-white bg-opacity-10"
+                                                style="height: 10px; border-radius: 10px;">
+                                                <div class="progress-bar bg-white shadow-lg" role="progressbar"
+                                                    style="width: {{ confidence }}%"></div>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="bg-white p-4 rounded-4 shadow-lg border-start border-4 border-warning mb-4">
+                                            <h6 class="text-dark fw-extra-bold x-small ls-1 uppercase mb-3 text-muted">
+                                                Recommended Next Steps</h6>
+                                            <p class="mb-4 text-dark fw-medium small lh-base">{{ medication }}</p>
+                                            
+                                            <a href="/viewdoctor/" class="btn btn-primary w-100 rounded-pill py-3 fw-extra-bold ls-1 uppercase transform-active shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                                <i class="fa fa-calendar-plus fs-5"></i> BOOK CONSULTATION NOW
+                                            </a>
+                                        </div>
+
+                                        {% if accuracy_graph %}
+                                        <div
+                                            class="mt-4 p-4 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                                            <h6 class="text-white fw-extra-bold x-small ls-1 uppercase mb-3">AI Accuracy
+                                            </h6>
+                                            <div class="mb-2">
+                                                <small class="text-white-50 x-small fw-bold d-block mb-1">ACCURACY
+                                                    SCORE</small>
+                                                <img src="{{ accuracy_graph }}"
+                                                    class="img-fluid rounded-3 mb-3 border border-white border-opacity-20 shadow-lg"
+                                                    alt="Accuracy Graph">
+                                            </div>
+                                            <div class="mb-3">
+                                                <small class="text-white-50 x-small fw-bold d-block mb-1">Reliability
+                                                    Check</small>
+                                                <img src="/static/plots/confusion_matrix.png"
+                                                    class="img-fluid rounded-3 mb-3 border border-white border-opacity-20 shadow-lg"
+                                                    alt="Confusion Matrix">
+                                            </div>
+                                            <a href="{{ report_link }}" target="_blank"
+                                                class="btn btn-outline-light btn-sm w-100 rounded-pill x-small fw-bold ls-1 uppercase py-2">
+                                                <i class="fa fa-file-lines me-2"></i>Detailed Report
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <div
+                                        class="empty-state-diag p-5 rounded-5 border-2 border-dashed d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="empty-icon-wrap mb-4 bg-light shadow-inner">
+                                            <i class="fa fa-heart-pulse fa-4x text-muted opacity-25"></i>
+                                        </div>
+                                        <h4 class="fw-extra-bold text-dark">Ready to Check</h4>
+                                        <p class="text-muted small max-w-400">Please describe your symptoms on the left
+                                            and click 'Start Analysis' to begin.</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Safety Note -->
+        <div class="text-center mt-5 wow fadeInUp">
+            <div
+                class="p-3 bg-dark rounded-pill d-inline-flex align-items-center px-5 shadow-lg border border-primary border-opacity-25">
+                <i class="fa fa-info-circle text-primary me-3"></i>
+                <p class="mb-0 text-white x-small fw-bold ls-1 uppercase">Medical Note: This is an AI prediction and not
+                    a formal diagnosis. Please consult a doctor for medical advice.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background: #f8fafc;
+    }
+
+    .fw-extra-bold {
+        font-weight: 800;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .ls-1 {
+        letter-spacing: 1px;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .max-w-800 {
+        max-width: 800px;
+    }
+
+    .max-w-400 {
+        max-width: 400px;
+    }
+
+    .h-60 {
+        height: 60px;
+    }
+
+    .w-60 {
+        width: 60px;
+    }
+
+    .w-40 {
+        width: 40px;
+    }
+
+    .h-40 {
+        height: 40px;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .diagnostic-nav-premium .nav-trigger {
+        border: none;
+        background: transparent;
+        color: #64748b;
+        border-bottom: 4px solid transparent;
+        transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .diagnostic-nav-premium .nav-trigger:hover {
+        background: rgba(13, 110, 253, 0.02);
+    }
+
+    .diagnostic-nav-premium .nav-trigger.active {
+        color: var(--bs-primary);
+        border-bottom-color: var(--bs-primary);
+        background: rgba(13, 110, 253, 0.05);
+    }
+
+    .nav-trigger.active .trigger-icon {
+        background: var(--bs-primary);
+        color: white;
+        transform: scale(1.1);
+    }
+
+    .trigger-icon {
+        width: 45px;
+        height: 45px;
+        background: #f1f5f9;
+        color: #94a3b8;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        font-size: 1.2rem;
+    }
+
+    .bg-dot-pattern {
+        background-color: #ffffff;
+        background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
+        background-size: 24px 24px;
+    }
+
+    .diagnosis-card-premium {
+        background: linear-gradient(135deg, #0d6efd 0%, #3e44d1 100%);
+        color: white;
+    }
+
+    .empty-state-diag {
+        background: #fbfcfe;
+        border-style: dashed !important;
+        border-color: #cbd5e1 !important;
+        min-height: 480px;
+    }
+
+    .empty-icon-wrap {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pulse-blue {
+        animation: pulse-blue 2s infinite;
+    }
+
+    @keyframes pulse-blue {
+        0% {
+            box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
+        }
+
+        70% {
+            box-shadow: 0 0 0 15px rgba(13, 110, 253, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+        }
+    }
+
+    .auth-mesh {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .transform-active:active {
+        transform: scale(0.98);
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .transition-500 {
+        transition: 0.5s;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    .op-8 {
+        opacity: 0.8;
+    }
+</style>
+
+<script>
+    // Voice Capture
+    const voiceBtn = document.getElementById('start-voice');
+    const inputField = document.getElementById('symptoms-input');
+
+    if ('webkitSpeechRecognition' in window) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        voiceBtn.onclick = function () {
+            recognition.start();
+            voiceBtn.innerHTML = '<i class="fa fa-circle-notch fa-spin"></i>';
+            voiceBtn.classList.replace('btn-primary', 'btn-danger');
+            voiceBtn.classList.remove('pulse-blue');
+        };
+
+        recognition.onresult = function (event) {
+            const transcript = event.results[0][0].transcript;
+            inputField.value = (inputField.value + " " + transcript).trim();
+            voiceBtn.innerHTML = '<i class="fa fa-microphone"></i>';
+            voiceBtn.classList.replace('btn-danger', 'btn-primary');
+            voiceBtn.classList.add('pulse-blue');
+        };
+
+        recognition.onend = function () {
+            voiceBtn.innerHTML = '<i class="fa fa-microphone"></i>';
+            voiceBtn.classList.replace('btn-danger', 'btn-primary');
+            voiceBtn.classList.add('pulse-blue');
+        };
+    } else {
+        voiceBtn.style.display = 'none';
+    }
+</script>
+
+{% include 'footer.html' %}

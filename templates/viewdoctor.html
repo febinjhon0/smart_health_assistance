@@ -1,0 +1,182 @@
+{% include 'header.html' %}
+
+<div style="background:#f4f6f9; min-height:100vh;" class="py-5">
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="d-flex align-items-center justify-content-between mb-5 flex-wrap gap-4 wow fadeInUp">
+            <div>
+                <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-3 py-1 mb-2 text-primary fw-bold"
+                    style="font-size:0.75rem; letter-spacing: 1px; text-transform: uppercase;">
+                    <i class="fa fa-stethoscope me-2"></i> Our Doctors
+                </div>
+                <h2 class="fw-bold text-dark mb-1 display-5" style="letter-spacing: -1px;">Find a Doctor</h2>
+                <p class="text-muted mb-0 fs-5 mx-auto">Browse our qualified medical professionals and book an
+                    appointment.</p>
+            </div>
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-white shadow-sm rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 border dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fa fa-filter text-primary"></i> 
+                        {% if selected_specialty %} {{ selected_specialty }} {% else %} All Departments {% endif %}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-4 p-2">
+                        <li><a class="dropdown-item rounded-3 fw-bold small" href="/viewdoctor/">All Departments</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        {% for specialty in specialties %}
+                        <li>
+                            <a class="dropdown-item rounded-3 small {% if selected_specialty == specialty %}active bg-primary{% endif %}" 
+                               href="/viewdoctor/?specialization={{ specialty }}">
+                               {{ specialty }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if selected_specialty %}
+                <div class="mt-2 text-end">
+                    <a href="/viewdoctor/" class="text-primary x-small fw-bold text-decoration-none ls-1 uppercase">
+                        <i class="fa fa-times-circle me-1"></i> Clear Filter
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Doctor Cards Grid -->
+        <div class="row g-4 justify-content-center">
+            {% for i in result %}
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter0|add:1 }}00ms">
+                <div
+                    class="card border-0 shadow-2xl rounded-5 overflow-hidden bg-white h-100 transition-500 hover-lift-up">
+
+                    <!-- Doctor Identity Node -->
+                    <div class="position-relative overflow-hidden" style="height:280px;">
+                        <img src="/media/{{ i.image }}"
+                            onerror="this.src='https://ui-avatars.com/api/?name={{ i.name }}&background=2563eb&color=fff&bold=true&size=512'"
+                            class="w-100 h-100 transition-700" style="object-fit:cover;" alt="{{ i.name }}">
+                        <div class="image-overlay-smart"></div>
+
+                        <div class="position-absolute top-0 end-0 p-3">
+                            <span class="badge bg-white text-primary rounded-pill px-3 py-2 fw-bold shadow-sm"
+                                style="font-size:0.75rem;">
+                                <i class="fa fa-circle text-success me-1"></i> AVAILABLE
+                            </span>
+                        </div>
+
+                        <div class="position-absolute bottom-0 start-0 w-100 p-4">
+                            <span class="badge bg-primary rounded-pill px-3 py-1 mb-2 fw-bold ls-1"
+                                style="font-size:0.75rem; text-transform:uppercase;">
+                                {{ i.specialization }}
+                            </span>
+                            <h4 class="text-white fw-bold mb-0">Dr. {{ i.name }}</h4>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4 pt-4">
+                        <!-- Metrics Matrix -->
+                        <div class="row g-2 mb-4">
+                            <div class="col-4">
+                                <div class="text-center p-3 rounded-4 bg-primary shadow-sm border border-primary">
+                                    <div class="fw-bold text-white fs-5">{{ i.experience }}+</div>
+                                    <div class="text-white opacity-90 x-small uppercase fw-bold ls-1">Years</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-center p-3 rounded-4 bg-warning shadow-sm border border-warning">
+                                    <div class="fw-bold text-white fs-5">4.9</div>
+                                    <div class="text-white opacity-90 x-small uppercase fw-bold ls-1">Rating</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-center p-3 rounded-4 bg-success shadow-sm border border-success">
+                                    <div class="fw-bold text-white fs-5"><i class="fa fa-shield-check"></i></div>
+                                    <div class="text-white opacity-90 x-small uppercase fw-bold ls-1">Verified</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Telemetry -->
+                        <div class="d-flex flex-column gap-2 mb-4">
+                            <div class="d-flex align-items-center gap-3 text-dark p-3 rounded-4 bg-light shadow-sm">
+                                <i class="fa fa-envelope text-primary fs-5"></i>
+                                <span class="fw-bold small">{{ i.email }}</span>
+                            </div>
+                        </div>
+
+                        {% if request.session.userid %}
+                        <a href="/view_slots/?doctor_id={{ i.id }}"
+                            class="btn btn-primary w-100 rounded-pill py-3 fw-bold d-flex align-items-center justify-content-center gap-3 shadow-lg transform-active">
+                            <i class="fa fa-calendar-check fs-5"></i> BOOK NOW
+                        </a>
+                        {% else %}
+                        <div class="d-grid gap-2 text-center">
+                            <a href="/login/"
+                                class="btn btn-dark w-100 rounded-pill py-3 fw-bold shadow-lg transform-active">
+                                <i class="fa fa-right-to-bracket me-2"></i> LOGIN TO BOOK
+                            </a>
+                            <small class="text-muted small fw-bold mt-2">Please login to book a slot</small>
+                        </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="card border-0 shadow-2xl rounded-5 p-5 py-lg-7 mx-auto bg-white" style="max-width:560px;">
+                    <div class="bg-light rounded-circle p-5 d-inline-flex mx-auto mb-4">
+                        <i class="fa fa-user-md-slash fa-4x text-muted opacity-25"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark">No Doctors Found</h3>
+                    <p class="text-muted mb-0 fs-6">There are no doctors registered at the moment. Please check back
+                        later.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .image-overlay-smart {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+    }
+
+    .hover-lift-up:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .transition-500 {
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .hover-lift-up:hover img {
+        transform: scale(1.05);
+    }
+
+    .bg-white {
+        background-color: #ffffff !important;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .ls-1 {
+        letter-spacing: 0.5px;
+    }
+
+    .transform-active:active {
+        transform: scale(0.96);
+    }
+</style>
+
+{% include 'footer.html' %}

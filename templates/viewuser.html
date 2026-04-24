@@ -1,0 +1,280 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100">
+  <div class="container">
+    <!-- Authority Header -->
+    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between mb-10 wow fadeInUp"
+      data-wow-delay="0.1s">
+      <div class="text-center text-lg-start mb-5 mb-lg-0">
+        <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+          <i class="fa fa-database text-primary me-3 small"></i>
+          <span class="text-primary fw-extra-bold x-small uppercase ls-2">Authority Registry Hub</span>
+        </div>
+        <h1 class="display-3 fw-extra-bold text-dark mt-2 mb-0 tracking-tighter">Patient Population</h1>
+        <p class="text-muted mt-2 fs-5 max-w-600">Encrypted synchronization of biological profiles and active medical
+          node membership within the secure clinical cluster.</p>
+      </div>
+
+      <div class="d-none d-lg-block">
+        <div
+          class="registry-stats-card p-5 bg-dark rounded-5 shadow-2xl border-start border-primary border-4 position-relative overflow-hidden"
+          style="min-width: 320px;">
+          <div class="auth-mesh opacity-10"></div>
+          <div class="d-flex align-items-center position-relative z-index-2">
+            <div class="bg-primary rounded-circle p-3 me-4 shadow-lg pulse-ring">
+              <i class="fa fa-users text-white fs-3"></i>
+            </div>
+            <div>
+              <h2 class="text-white fw-extra-bold mb-0 lh-1">{{ result|length }}</h2>
+              <small class="text-white-50 text-uppercase fw-bold ls-1 x-small">Active Neural Nodes</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-5">
+      {% for i in result %}
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter }}00ms">
+        <div class="card h-100 border-0 shadow-2xl rounded-5 overflow-hidden bg-white transition-500 hover-lift">
+          <!-- Identity Accent -->
+          <div class="identity-gradient"
+            style="height: 120px; background: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%); position: relative;">
+            <div class="auth-mesh opacity-20"></div>
+            <div class="position-absolute bottom-0 start-50 translate-middle-x" style="margin-bottom: -45px;">
+              <div class="profile-avatar shadow-2xl border-white border-4 rounded-circle bg-white p-1">
+                <div
+                  class="w-100 h-100 d-flex align-items-center justify-content-center bg-light rounded-circle shadow-inner overflow-hidden">
+                  <i class="fa fa-user-shield text-primary fs-2"></i>
+                </div>
+                <div class="status-indicator-ring bg-success border border-white border-3 rounded-circle"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body p-4 pt-5 mt-5">
+            <div class="text-center mb-5">
+              <h3 class="fw-extra-bold text-dark mb-1 tracking-tight">{{ i.name }}</h3>
+              <div class="d-flex align-items-center justify-content-center gap-2">
+                <span
+                  class="badge bg-primary bg-opacity-05 text-primary border border-primary border-opacity-10 px-3 py-1 rounded-pill fw-bold ls-1 x-small uppercase">
+                  #NODE-PX-{{ i.id|add:1500 }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Parametric Data Grid -->
+            <div class="row g-3 mb-5">
+              <div class="col-6">
+                <div class="p-4 bg-light rounded-4 text-center border-0 shadow-inner transition-300">
+                  <p class="text-muted x-small fw-bold mb-1 uppercase ls-1">Chronological</p>
+                  <h5 class="mb-0 fw-extra-bold text-dark">{{ i.age }} <span class="small text-muted fw-bold">YRS</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-4 bg-light rounded-4 text-center border-0 shadow-inner transition-300">
+                  <p class="text-muted x-small fw-bold mb-1 uppercase ls-1">Biological</p>
+                  <h5 class="mb-0 fw-extra-bold text-dark">{{ i.gender|upper }}</h5>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transmission Channels -->
+            <div class="contact-stack d-flex flex-column gap-3 mb-4">
+              <div
+                class="p-3 rounded-4 bg-white border border-light d-flex align-items-center gap-3 transition-500 hover-shadow-sm">
+                <div
+                  class="channel-icon text-primary bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px;">
+                  <i class="fa fa-envelope-open small"></i>
+                </div>
+                <div class="overflow-hidden">
+                  <small class="text-muted x-small fw-bold ls-1 uppercase d-block">Uplink Gateway</small>
+                  <span class="text-dark fw-bold small text-truncate d-block">{{ i.email }}</span>
+                </div>
+              </div>
+
+              <div
+                class="p-3 rounded-4 bg-white border border-light d-flex align-items-center gap-3 transition-500 hover-shadow-sm">
+                <div
+                  class="channel-icon text-info bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px;">
+                  <i class="fa fa-mobile-screen small"></i>
+                </div>
+                <div>
+                  <small class="text-muted x-small fw-bold ls-1 uppercase d-block">Telecom Node</small>
+                  <span class="text-dark fw-bold small d-block">+91 {{ i.phone }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Authorization Footer -->
+          <div class="card-footer bg-light bg-opacity-50 border-0 p-4">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="badge bg-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2 shadow-sm">
+                <i class="fa fa-shield-halved text-primary x-small"></i>
+                <span class="font-monospace x-small fw-bold text-white-50">SESS_{{ i.id }}09X</span>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="/patient_history/{{ i.id }}/"
+                  class="btn btn-outline-primary rounded-pill px-4 py-2 fw-extra-bold x-small ls-1 uppercase shadow-sm h-40 d-flex align-items-center gap-2">
+                  VIEW HISTORY
+                </a>
+                <a href="/log_report/{{ i.id }}/"
+                  class="btn btn-primary rounded-pill px-4 py-2 fw-extra-bold x-small ls-1 uppercase transform-active shadow-sm h-40 d-flex align-items-center gap-2">
+                  LOG REPORT <i class="fa fa-arrow-right-long x-small"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 py-10 text-center wow fadeInUp">
+        <div class="p-10 rounded-5 border-3 border-dashed border-light bg-white shadow-inner max-w-800 mx-auto">
+          <div class="bg-light rounded-circle p-6 d-inline-flex mb-5">
+            <i class="fa fa-user-slash fa-5x text-muted opacity-25"></i>
+          </div>
+          <h2 class="display-4 fw-extra-bold text-dark mb-3 tracking-tighter">Population Null</h2>
+          <p class="text-muted fs-5 mb-0">No patient records were identified in the primary authority cluster. Awaiting
+            digital onboarding protocols.</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .bg-light-soft {
+    background: #fbfcfe;
+  }
+
+  .fw-extra-bold {
+    font-weight: 800;
+  }
+
+  .x-small {
+    font-size: 0.65rem;
+  }
+
+  .ls-1 {
+    letter-spacing: 1px;
+  }
+
+  .ls-2 {
+    letter-spacing: 2px;
+  }
+
+  .tracking-tighter {
+    letter-spacing: -2px;
+  }
+
+  .tracking-tight {
+    letter-spacing: -1px;
+  }
+
+  .max-w-600 {
+    max-width: 600px;
+  }
+
+  .max-w-800 {
+    max-width: 800px;
+  }
+
+  .h-40 {
+    height: 40px;
+  }
+
+  .mb-10 {
+    margin-bottom: 70px;
+  }
+
+  .shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-inner {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+
+  .status-indicator-ring {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    z-index: 5;
+  }
+
+  .hover-lift {
+    transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-15px) scale(1.01);
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .hover-shadow-sm:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05) !important;
+    border-color: var(--bs-primary) !important;
+  }
+
+  .auth-mesh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .pulse-ring {
+    animation: pulse-ring-anim 2s infinite;
+  }
+
+  @keyframes pulse-ring-anim {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.5);
+    }
+
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 15px rgba(13, 110, 253, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+    }
+  }
+
+  .font-monospace {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+
+  .transform-active:active {
+    transform: scale(0.96);
+  }
+
+  .transition-300 {
+    transition: 0.3s;
+  }
+
+  .transition-500 {
+    transition: 0.5s;
+  }
+</style>
+
+{% include 'footer.html' %}

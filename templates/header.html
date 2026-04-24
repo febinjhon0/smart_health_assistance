@@ -1,0 +1,486 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>SmartHealth | Your Personal Health Companion</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="disease prediction, health assistant, doctor booking, medical AI" name="keywords">
+    <meta
+        content="SmartHealth provides AI-powered disease prediction, instant health guidance, and easy doctor appointment booking."
+        name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --dark: #111827;
+            --text: #374151;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --bg: #f9fafb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+        }
+
+        /* ─── NAVBAR ─── */
+        .smartnav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.3s;
+        }
+
+        .smartnav.scrolled {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+        }
+
+        .smartnav .container-fluid {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Brand */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        .brand-tag {
+            font-size: 0.65rem;
+            color: var(--muted);
+            font-weight: 500;
+            display: block;
+            margin-top: 1px;
+        }
+
+        /* Nav Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-shrink: 1;
+            min-width: 0;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-links a i {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-links a:hover i {
+            opacity: 1;
+        }
+
+        .nav-links a.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links .nav-danger a {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+            font-weight: 700;
+        }
+
+        .nav-links .nav-danger a:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Auth Buttons */
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-signin {
+            padding: 9px 22px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: var(--primary);
+            color: white;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-signin:hover {
+            background: var(--primary-dark);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-register {
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Mobile Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 16px 24px;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .mobile-menu a.danger {
+            color: #ef4444;
+        }
+
+        .mobile-menu a.danger:hover {
+            background: #fef2f2;
+        }
+
+        .mobile-menu .divider {
+            border-top: 1px solid var(--border);
+            margin: 8px 0;
+        }
+
+        @media (max-width: 991px) {
+            .nav-desktop {
+                display: none !important;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .nav-toggle {
+                display: none;
+            }
+        }
+
+        /* Utility classes used by other templates */
+        .fw-extra-bold {
+            font-weight: 700;
+        }
+
+        .x-small {
+            font-size: 0.7rem;
+        }
+
+        .ls-1 {
+            letter-spacing: 0.5px;
+        }
+
+        .ls-2 {
+            letter-spacing: 1px;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .shadow-2xl {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .max-w-800 {
+            max-width: 800px;
+        }
+
+        .max-w-400 {
+            max-width: 400px;
+        }
+
+        .transition-500 {
+            transition: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── NAVBAR ─── -->
+    <nav class="smartnav" id="smartnav">
+        <div class="container-fluid">
+
+            <!-- Brand -->
+            <a href="/" class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fa fa-heart-pulse"></i>
+                </div>
+                <div>
+                    <div class="brand-name">Smart<span>Health</span></div>
+                    <span class="brand-tag">AI Health Platform</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            {% if request.session.userid %}
+            <ul class="nav-links nav-desktop">
+                <li><a href="/home/"><i class="fa fa-house"></i> Home</a></li>
+                <li><a href="/profile/"><i class="fa fa-user-circle"></i> Profile</a></li>
+                <li><a href="/predict/"><i class="fa fa-stethoscope"></i> Prediction</a></li>
+                <li><a href="/history/"><i class="fa fa-clock-rotate-left"></i> History</a></li>
+                <li><a href="/chatbot/"><i class="fa fa-comments"></i> Health Chat</a></li>
+                <li><a href="/viewdoctor/"><i class="fa fa-user-doctor"></i> Doctors</a></li>
+                <li><a href="/appointments/"><i class="fa fa-calendar-check"></i> Bookings</a></li>
+                <li><a href="/feedback/"><i class="fa fa-star"></i> Feedback</a></li>
+                <li><a href="/view_reports/"><i class="fa fa-file-medical"></i> Health Reports</a></li>
+                <li class="nav-danger"><a href="/logout/"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+
+            {% elif request.session.admin %}
+            <ul class="nav-links nav-desktop">
+                <li><a href="/home/"><i class="fa fa-gauge"></i> Dashboard</a></li>
+                <li><a href="/doctor/"><i class="fa fa-user-plus"></i> Add Doctor</a></li>
+                <li><a href="/viewdoctor/"><i class="fa fa-user-doctor"></i> Doctors</a></li>
+                <li><a href="/viewuser/"><i class="fa fa-users"></i> Patients</a></li>
+                <li><a href="/appointments/"><i class="fa fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="/view_feedback/"><i class="fa fa-envelope"></i> Messages</a></li>
+                <li class="nav-danger"><a href="/logout/"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+
+            {% elif request.session.did %}
+            <ul class="nav-links nav-desktop">
+                <li><a href="/home/"><i class="fa fa-house"></i> Home</a></li>
+                <li><a href="/add_slot/"><i class="fa fa-plus-circle"></i> Add Slot</a></li>
+                <li><a href="/viewuser/"><i class="fa fa-users"></i> Patients</a></li>
+                <li><a href="/appointments/"><i class="fa fa-calendar-check"></i> Appointments</a></li>
+                <li class="nav-danger"><a href="/logout/"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+
+            {% else %}
+            <ul class="nav-links nav-desktop">
+                <li><a href="/index/"><i class="fa fa-house"></i> Home</a></li>
+                <li><a href="/contact/"><i class="fa fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="nav-auth nav-desktop">
+                <a href="/register/" class="btn-register"><i class="fa fa-user-plus"></i> Register</a>
+                <a href="/login/" class="btn-signin"><i class="fa fa-right-to-bracket"></i> Sign In</a>
+            </div>
+            {% endif %}
+
+            <!-- Mobile Toggle -->
+            <button class="nav-toggle" onclick="toggleMobileMenu()" id="nav-toggle-btn">
+                <i class="fa fa-bars" id="toggle-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            {% if request.session.userid %}
+            <a href="/home/"><i class="fa fa-house"></i> Home</a>
+            <a href="/profile/"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="/predict/"><i class="fa fa-stethoscope"></i> Prediction</a>
+            <a href="/history/"><i class="fa fa-clock-rotate-left"></i> History</a>
+            <a href="/chatbot/"><i class="fa fa-comments"></i> Health Chat</a>
+            <a href="/viewdoctor/"><i class="fa fa-user-doctor"></i> Doctors</a>
+            <a href="/appointments/"><i class="fa fa-calendar-check"></i> Bookings</a>
+            <a href="/feedback/"><i class="fa fa-star"></i> Feedback</a>
+            <a href="/view_reports/"><i class="fa fa-file-medical"></i> Health Reports</a>
+            <div class="divider"></div>
+            <a href="/logout/" class="danger"><i class="fa fa-power-off"></i> Logout</a>
+
+            {% elif request.session.admin %}
+            <a href="/home/"><i class="fa fa-gauge"></i> Dashboard</a>
+            <a href="/doctor/"><i class="fa fa-user-plus"></i> Add Doctor</a>
+            <a href="/viewdoctor/"><i class="fa fa-user-doctor"></i> Doctors</a>
+            <a href="/viewuser/"><i class="fa fa-users"></i> Patients</a>
+            <a href="/appointments/"><i class="fa fa-calendar-check"></i> Appointments</a>
+            <a href="/view_feedback/"><i class="fa fa-envelope"></i> Messages</a>
+            <div class="divider"></div>
+            <a href="/logout/" class="danger"><i class="fa fa-power-off"></i> Logout</a>
+
+            {% elif request.session.did %}
+            <a href="/home/"><i class="fa fa-house"></i> Home</a>
+            <a href="/add_slot/"><i class="fa fa-plus-circle"></i> Add Slot</a>
+            <a href="/viewuser/"><i class="fa fa-users"></i> Patients</a>
+            <a href="/appointments/"><i class="fa fa-calendar-check"></i> Appointments</a>
+            <div class="divider"></div>
+            <a href="/logout/" class="danger"><i class="fa fa-power-off"></i> Logout</a>
+
+            {% else %}
+            <a href="/index/"><i class="fa fa-house"></i> Home</a>
+            <a href="/contact/"><i class="fa fa-envelope"></i> Contact</a>
+            <div class="divider"></div>
+            <a href="/register/"><i class="fa fa-user-plus"></i> Register</a>
+            <a href="/login/"><i class="fa fa-right-to-bracket"></i> Sign In</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('toggle-icon');
+            menu.classList.toggle('open');
+            icon.className = menu.classList.contains('open') ? 'fa fa-xmark' : 'fa fa-bars';
+        }
+
+        window.addEventListener('scroll', function () {
+            const nav = document.getElementById('smartnav');
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+    </script>
+    <!-- Navbar End -->
+    {% endblock %}

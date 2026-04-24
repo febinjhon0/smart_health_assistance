@@ -1,0 +1,248 @@
+{% include 'header.html' %}
+
+<div class="chat-master-wrapper min-vh-100 py-5 bg-light-soft position-relative overflow-hidden">
+    <!-- Abstract Neural Background -->
+    <div class="neural-matrix-overlay opacity-10"></div>
+
+    <div class="container position-relative z-index-10">
+        <!-- Intelligent Header -->
+        <div class="text-center mb-5 wow fadeInUp">
+            <div
+                class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3 shadow-sm">
+                <i class="fa fa-comment-medical text-primary me-3 small"></i>
+                <span class="text-primary fw-extra-bold x-small uppercase ls-2">Health Chat</span>
+            </div>
+            <h2 class="display-5 fw-extra-bold text-dark">Medical AI Assistant</h2>
+            <p class="text-muted mx-auto max-w-600 fs-6 fw-bold">Ask about symptoms, medications, or general health
+                questions.</p>
+        </div>
+
+        <!-- High-Fidelity Chat Terminal -->
+        <div class="chat-terminal shadow-2xl rounded-5 border-0 bg-white d-flex flex-column mx-auto wow fadeInUp"
+            style="max-width: 850px; height: 70vh; border: 1px solid rgba(0,0,0,0.05) !important;">
+
+            <!-- Header: System Context -->
+            <div
+                class="px-5 py-4 border-bottom d-flex align-items-center justify-content-between bg-white rounded-top-5">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar-capsule bg-primary shadow-lg pulse-ring">
+                        <i class="fa fa-robot text-white"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-extra-bold text-dark">HealthBot <span
+                                class="badge bg-success text-white ms-2 x-small ls-1 fw-bold">ONLINE</span></h6>
+                        <small class="text-muted fw-bold x-small uppercase ls-1 italic">Ready to help</small>
+                    </div>
+                </div>
+                <div class="session-actions">
+                    <button class="btn btn-light rounded-circle p-2 border-0"><i
+                            class="fa fa-ellipsis-vertical text-muted"></i></button>
+                </div>
+            </div>
+
+            <!-- Clinical Log Area -->
+            <div id="chat-conversation"
+                class="flex-grow-1 overflow-auto px-5 py-4 d-flex flex-column gap-4 bg-dot-pattern">
+
+                <!-- Bot Initialization Protocol -->
+                <div class="d-flex align-items-start gap-4 mb-2">
+                    <div
+                        class="bg-primary text-white rounded-circle p-3 flex-shrink-0 animate__animated animate__fadeIn shadow-sm">
+                        <i class="fa fa-star-of-life"></i>
+                    </div>
+                    <div class="p-4 rounded-5 rounded-top-start-0 bg-white border shadow-sm max-w-75 transition-500">
+                        <p class="mb-0 text-dark fw-bold fs-6 lh-lg">Hello! I am your health assistant. Please describe
+                            your symptoms or ask any health-related question, and I'll do my best to help you.</p>
+                    </div>
+                </div>
+
+                {% for chat in chat_history %}
+                <!-- Data Transmission (User) -->
+                <div class="d-flex justify-content-end mb-2">
+                    <div
+                        class="p-4 rounded-5 rounded-top-end-0 bg-primary text-white shadow-lg max-w-75 animate__animated animate__fadeInRight">
+                        <p class="mb-0 fw-bold fs-6 lh-lg">{{ chat.user_message }}</p>
+                    </div>
+                </div>
+
+                <!-- Analysis Response (Bot) -->
+                <div class="d-flex align-items-start gap-4 mb-2">
+                    <div class="bg-dark text-white rounded-circle p-3 flex-shrink-0 shadow-sm">
+                        <i class="fa fa-robot"></i>
+                    </div>
+                    <div
+                        class="p-4 rounded-5 rounded-top-start-0 bg-white border shadow-sm max-w-75 animate__animated animate__fadeIn">
+                        <p class="mb-0 text-dark fw-bold fs-6 lh-lg">{{ chat.bot_response|safe }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Neural Processing Loop Indicator -->
+                <div id="typing-indicator" class="d-none d-flex align-items-start gap-4">
+                    <div class="bg-primary rounded-circle p-3 flex-shrink-0 shadow-sm">
+                        <i class="fa fa-microchip text-white fa-spin"></i>
+                    </div>
+                    <div class="p-3 px-4 rounded-pill bg-light border">
+                        <div class="typing-plexus d-flex gap-2">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telemetry Input Unit -->
+            <div class="px-5 py-4 bg-white border-top rounded-bottom-5">
+                <form action="/chatbot_query/" method="POST" id="chat-form">
+                    {% csrf_token %}
+                    <div
+                        class="input-group-premium d-flex align-items-center gap-3 p-2 bg-light rounded-pill border transition-500">
+                        <button type="button" id="voice-trigger"
+                            class="btn btn-white shadow-sm rounded-circle p-3 border transform-active">
+                            <i class="fa fa-microphone text-primary fs-5"></i>
+                        </button>
+                        <input type="text" name="query" id="user-query"
+                            class="form-control bg-transparent border-0 shadow-none px-2 fw-bold text-dark"
+                            placeholder="Type a health question here..." required autocomplete="off">
+                        <button type="submit"
+                            class="btn btn-primary rounded-pill px-5 py-3 fw-bold ls-1 shadow-lg transform-active">
+                            SEND <i class="fa fa-paper-plane ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background: #fbfcfe;
+    }
+
+    .max-w-600 {
+        max-width: 600px;
+    }
+
+    .max-w-75 {
+        max-width: 75%;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.12);
+    }
+
+    .avatar-capsule {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .bg-dot-pattern {
+        background-color: #ffffff;
+        background-image: radial-gradient(#eff6ff 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    .input-group-premium:focus-within {
+        background: white !important;
+        border-color: var(--bs-primary) !important;
+        box-shadow: 0 10px 30px -10px rgba(13, 110, 253, 0.15);
+    }
+
+    .typing-plexus span {
+        width: 6px;
+        height: 6px;
+        background: var(--bs-primary);
+        border-radius: 2px;
+        animation: pulse-plexus 1.2s infinite ease-in-out;
+    }
+
+    .typing-plexus span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing-plexus span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes pulse-plexus {
+
+        0%,
+        100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1.5) rotate(45deg);
+        }
+    }
+
+    .neural-matrix-overlay {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(13, 110, 253, 0.08) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    .pulse-ring {
+        animation: pulse-ring-anim 2s infinite;
+    }
+
+    @keyframes pulse-ring-anim {
+        0% {
+            box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
+        }
+
+        70% {
+            box-shadow: 0 0 0 12px rgba(13, 110, 253, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+        }
+    }
+
+    .transform-active:active {
+        transform: scale(0.96);
+    }
+</style>
+
+<script>
+    const voiceBtn = document.getElementById('voice-trigger');
+    const queryInput = document.getElementById('user-query');
+    const chatForm = document.getElementById('chat-form');
+    const chatWindow = document.getElementById('chat-conversation');
+
+    if ('webkitSpeechRecognition' in window) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        voiceBtn.onclick = () => {
+            recognition.start();
+            voiceBtn.innerHTML = '<i class="fa fa-bolt-lightning fa-beat text-danger"></i>';
+        };
+        recognition.onresult = (e) => {
+            queryInput.value = e.results[0][0].transcript;
+            voiceBtn.innerHTML = '<i class="fa fa-microphone text-primary"></i>';
+        };
+        recognition.onend = () => {
+            voiceBtn.innerHTML = '<i class="fa fa-microphone text-primary"></i>';
+        };
+    } else {
+        voiceBtn.style.display = 'none';
+    }
+
+    const scrollToBottom = () => { chatWindow.scrollTop = chatWindow.scrollHeight; };
+    window.onload = scrollToBottom;
+    chatForm.onsubmit = () => {
+        document.getElementById('typing-indicator').classList.remove('d-none');
+        scrollToBottom();
+    };
+</script>
+
+{% include 'footer.html' %}

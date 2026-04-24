@@ -1,0 +1,242 @@
+{% include 'header.html' %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center wow fadeInUp mb-5" data-wow-delay="0.1s">
+            <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                <i class="fa fa-comment-medical text-primary me-2 small"></i>
+                <span class="text-primary fw-bold x-small uppercase ls-2">Professional Review Protocol</span>
+            </div>
+            <h1 class="display-5 fw-extra-bold text-dark mt-2">Share Your Consultation Insights</h1>
+            <p class="text-muted fs-5 mx-auto max-w-600">Your specific clinical feedback calibrate our expert
+                calibration and helps the SmartHealth registry maintain ISO-certified excellence.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="card border-0 shadow-2xl overflow-hidden glass-card" style="border-radius: 50px;">
+                    <div class="row g-0">
+                        <!-- Left Panel: Doctor Identification -->
+                        <div class="col-lg-5 p-5 bg-dark text-white position-relative d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                            <div class="auth-mesh opacity-10"></div>
+
+                            <!-- Profile Visualization -->
+                            <div class="position-relative mb-4 wow zoomIn" data-wow-delay="0.3s">
+                                <div class="review-doc-frame shadow-2xl">
+                                    <img src="/media/{{ doctor.image }}"
+                                        class="w-100 h-100 object-fit-cover transition-500" alt="{{ doctor.name }}">
+                                </div>
+                                <div class="position-absolute bottom-0 end-0 bg-white rounded-circle p-2 shadow-lg pulse-red"
+                                    style="width: 45px; height: 45px; transform: translate(10px, 10px); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa fa-heart text-danger fs-5"></i>
+                                </div>
+                            </div>
+
+                            <div class="text-center wow fadeInUp" data-wow-delay="0.5s">
+                                <h3 class="fw-extra-bold text-white mb-1">{{ doctor.name }}</h3>
+                                <p class="text-primary fw-bold x-small ls-2 uppercase">{{ doctor.specialization }}</p>
+
+                                <div
+                                    class="mt-4 p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10 backdrop-blur">
+                                    <p class="x-small mb-0 text-white-50 fw-medium ls-1 uppercase italic">Validating
+                                        Clinical Interaction for Patient Node History</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Feedback Engine -->
+                        <div class="col-lg-7 p-5 bg-white">
+                            <div class="px-md-2">
+                                <div class="mb-5">
+                                    <h2 class="fw-extra-bold text-dark mb-2">Service Evaluation</h2>
+                                    <p class="text-muted small">Quantify your experience with Dr. {{ doctor.name }} to
+                                        assist the medical community.</p>
+                                </div>
+
+                                <form action="/add_review/" method="POST" id="review-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+
+                                    <!-- Neural Rating Matrix -->
+                                    <div class="mb-5 text-center">
+                                        <label
+                                            class="form-label d-block fw-extra-bold text-dark x-small ls-2 mb-4 uppercase">CLINICAL
+                                            RATING METRIC</label>
+                                        <div class="neural-rating d-flex flex-row-reverse justify-content-center gap-3">
+                                            <input type="radio" name="rating" value="5" id="s5" required>
+                                            <label for="s5" title="Excellent"><i class="fa fa-star"></i></label>
+                                            <input type="radio" name="rating" value="4" id="s4">
+                                            <label for="s4" title="Very Good"><i class="fa fa-star"></i></label>
+                                            <input type="radio" name="rating" value="3" id="s3">
+                                            <label for="s3" title="Good"><i class="fa fa-star"></i></label>
+                                            <input type="radio" name="rating" value="2" id="s2">
+                                            <label for="s2" title="Fair"><i class="fa fa-star"></i></label>
+                                            <input type="radio" name="rating" value="1" id="s1">
+                                            <label for="s1" title="Poor"><i class="fa fa-star"></i></label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Qualitative Input -->
+                                    <div class="mb-5">
+                                        <label
+                                            class="form-label fw-extra-bold text-dark x-small ls-2 mb-3 uppercase">QUALITATIVE
+                                            SUMMARY</label>
+                                        <div class="input-modern-group bg-light rounded-4 p-3 border-2 transition-300">
+                                            <textarea class="form-control bg-transparent border-0 shadow-none fw-medium"
+                                                name="comments" id="comment-box" style="height: 180px; resize: none;"
+                                                placeholder="Describe the clinical efficacy, professional conduct, and diagnostic clarity..."
+                                                required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit"
+                                        class="btn btn-dark w-100 py-4 rounded-pill shadow-2xl fw-extra-bold ls-1 transform-active h-60 d-flex align-items-center justify-content-center gap-3">
+                                        PUBLISH TO REGISTRY <i class="fa fa-globe-americas fs-5"></i>
+                                    </button>
+                                </form>
+
+                                <div class="mt-5 pt-4 text-center">
+                                    <p class="x-small text-muted fw-bold ls-1 uppercase italic mb-0">
+                                        <i class="fa fa-shield-check text-success me-2"></i> ANONYMIZED SUBMISSION
+                                        OPTION ENABLED
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background: #fbfcfe;
+    }
+
+    .fw-extra-bold {
+        font-weight: 800;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .ls-1 {
+        letter-spacing: 1px;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .max-w-600 {
+        max-width: 600px;
+    }
+
+    .h-60 {
+        height: 60px;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .review-doc-frame {
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 6px solid rgba(255, 255, 255, 0.1);
+        background: #fff;
+    }
+
+    .backdrop-blur {
+        backdrop-filter: blur(8px);
+    }
+
+    .neural-rating input {
+        display: none;
+    }
+
+    .neural-rating label {
+        font-size: 2.2rem;
+        color: #e2e8f0;
+        cursor: pointer;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .neural-rating label:hover,
+    .neural-rating label:hover~label,
+    .neural-rating input:checked~label {
+        color: #f59e0b;
+        transform: scale(1.15) rotate(10deg);
+        filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.3));
+    }
+
+    .input-modern-group {
+        border-color: #f1f5f9;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .input-modern-group:focus-within {
+        background: #fff !important;
+        border-color: var(--bs-primary) !important;
+        box-shadow: 0 10px 30px -10px rgba(var(--bs-primary-rgb), 0.15);
+        transform: translateY(-2px);
+    }
+
+    .auth-mesh {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    .pulse-red {
+        animation: pulse-red 2s infinite;
+    }
+
+    @keyframes pulse-red {
+        0% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+        }
+
+        70% {
+            box-shadow: 0 0 0 15px rgba(220, 53, 69, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+        }
+    }
+
+    .transform-active:active {
+        transform: scale(0.98);
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    .transition-500 {
+        transition: 0.5s;
+    }
+</style>
+
+{% include 'footer.html' %}

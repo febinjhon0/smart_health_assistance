@@ -1,0 +1,248 @@
+{% include 'header.html' %}
+{% load static %}
+
+{% if message %}
+<script>
+    alert('{{ message }}');
+</script>
+{% endif %}
+
+<div class="container-xxl py-5 bg-light-soft min-vh-100">
+    <div class="container">
+        <!-- Global Support Header -->
+        <div class="text-center wow fadeInUp mb-10" data-wow-delay="0.1s">
+            <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 mb-3">
+                <i class="fa fa-satellite-dish text-primary me-2 small"></i>
+                <span class="text-primary fw-bold x-small uppercase ls-2">Global Support Grid</span>
+            </div>
+            <h1 class="display-4 fw-extra-bold text-dark mt-2 mb-0">Connect With Our Faculty</h1>
+            <p class="text-muted mt-2 fs-5 mx-auto max-w-700">Inquiries regarding neural diagnostics, API integration,
+                or urgent clinical assistance. Our faculty is active 24/7.</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Information Hub -->
+            <div class="col-lg-4 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="d-flex flex-column gap-5">
+                    <div
+                        class="contact-nexus-card p-5 rounded-5 bg-white shadow-2xl border-0 transition-500 hover-translate-up">
+                        <div class="d-flex align-items-start gap-4">
+                            <div class="bg-primary rounded-4 p-3 shadow-lg transform-5deg">
+                                <i class="fa fa-location-dot text-white fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extra-bold text-dark mb-2">Primary Faculty</h5>
+                                <p class="text-muted small mb-0 lh-lg">Science Park, Block 7G,<br>Healthcare District,
+                                    2026<br>Silicon Plateau, Bangalore</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="contact-nexus-card p-5 rounded-5 bg-dark text-white shadow-2xl border-0 transition-500 hover-translate-up position-relative overflow-hidden">
+                        <div class="auth-mesh opacity-10"></div>
+                        <div class="d-flex align-items-start gap-4 position-relative z-index-2">
+                            <div class="bg-primary rounded-4 p-3 shadow-lg transform-n5deg">
+                                <i class="fa fa-phone-volume text-white fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extra-bold text-white mb-2">Emergency Uplink</h5>
+                                <p class="text-white-50 small mb-0">+91 080-6600-9900<br>Priority Line for Practitioners
+                                </p>
+                                <span
+                                    class="badge bg-success bg-opacity-20 text-success rounded-pill px-3 py-1 x-small fw-extrabold ls-1 uppercase mt-3 mt-md-2 d-inline-block">Status:
+                                    Live</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="contact-nexus-card p-5 rounded-5 bg-white shadow-2xl border-0 transition-500 hover-translate-up">
+                        <div class="d-flex align-items-start gap-4">
+                            <div class="bg-primary rounded-4 p-3 shadow-lg transform-5deg">
+                                <i class="fa fa-envelope-open-text text-white fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extra-bold text-dark mb-2">Electronic Mail</h5>
+                                <p class="text-muted small mb-0">
+                                    faculty@smarthealth.ai<br>nexus@clinical-intelligence.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Terminal & Map -->
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="h-100 rounded-5 overflow-hidden shadow-2xl border border-8 border-white position-relative">
+                    <iframe class="w-100 h-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.31238618037!2d77.5945625!3d12.9715987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670839e1f57%3A0xf601815e985474c6!2sBangalore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1603794290143!5m2!1sen!2sin"
+                        frameborder="0"
+                        style="min-height: 500px; border:0; filter: grayscale(100%) contrast(1.2) invert(90%);"
+                        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    <div
+                        class="position-absolute bottom-0 start-0 w-100 p-4 bg-dark bg-opacity-70 backdrop-blur text-white text-center">
+                        <small class="fw-extrabold ls-2 uppercase x-small">Satellite Coordinates: 12.9716° N, 77.5946°
+                            E</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transmission Command -->
+            <div class="col-lg-4 wow fadeInRight" data-wow-delay="0.4s">
+                <div class="card border-0 shadow-2xl rounded-5 bg-white overflow-hidden p-0 h-100">
+                    <div class="bg-dark p-5 text-center text-white position-relative">
+                        <div class="auth-mesh opacity-10"></div>
+                        <h4 class="fw-extra-bold mb-0 position-relative z-index-2">Send Transmission</h4>
+                        <p class="text-white-50 x-small fw-bold ls-2 uppercase mt-2">End-to-End Secure Terminal</p>
+                    </div>
+                    <div class="card-body p-5">
+                        <form action="/contact/" method="POST" id="contact-form">
+                            {% csrf_token %}
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div class="input-modern-group bg-light rounded-4 px-4 border-2 transition-300">
+                                        <label class="x-small fw-extrabold text-muted ls-1 uppercase mt-3">Full
+                                            Identity</label>
+                                        <input type="text" name="name" required
+                                            class="form-control bg-transparent border-0 shadow-none py-2 fw-bold"
+                                            placeholder="E.g. Alexander Pierce">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-modern-group bg-light rounded-4 px-4 border-2 transition-300">
+                                        <label class="x-small fw-extrabold text-muted ls-1 uppercase mt-3">Email
+                                            Protocol</label>
+                                        <input type="email" name="email" required
+                                            class="form-control bg-transparent border-0 shadow-none py-2 fw-bold"
+                                            placeholder="protocol@domain.ai">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-modern-group bg-light rounded-4 px-4 border-2 transition-300">
+                                        <label class="x-small fw-extrabold text-muted ls-1 uppercase mt-3">Message
+                                            Intent</label>
+                                        <textarea name="message" required
+                                            class="form-control bg-transparent border-0 shadow-none py-2 fw-bold"
+                                            rows="4" placeholder="Describe the inquiry parameters..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-5">
+                                    <button
+                                        class="btn btn-primary w-100 py-4 rounded-pill shadow-2xl-primary fw-extra-bold ls-1 transform-active h-60 d-flex align-items-center justify-content-center gap-3"
+                                        type="submit">
+                                        INITIALIZE SIGNAL <i class="fa fa-wave-square text-warning mb-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background: #fbfcfe;
+    }
+
+    .fw-extra-bold {
+        font-weight: 800;
+    }
+
+    .fw-extrabold {
+        font-weight: 800;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .ls-1 {
+        letter-spacing: 1px;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .max-w-700 {
+        max-width: 700px;
+    }
+
+    .h-60 {
+        height: 60px;
+    }
+
+    .mb-10 {
+        margin-bottom: 80px;
+    }
+
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    }
+
+    .shadow-2xl-primary {
+        box-shadow: 0 20px 40px -10px rgba(13, 110, 253, 0.4);
+    }
+
+    .contact-nexus-card {
+        border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .hover-translate-up:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 45px 90px -20px rgba(0, 0, 0, 0.15) !important;
+        border-color: var(--bs-primary) !important;
+    }
+
+    .auth-mesh {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(rgba(13, 110, 253, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .input-modern-group:focus-within {
+        background: #fff !important;
+        border-color: var(--bs-primary) !important;
+        box-shadow: 0 10px 30px -10px rgba(13, 110, 253, 0.1);
+    }
+
+    .transform-5deg {
+        transform: rotate(5deg);
+    }
+
+    .transform-n5deg {
+        transform: rotate(-5deg);
+    }
+
+    .backdrop-blur {
+        backdrop-filter: blur(10px);
+    }
+
+    .transition-300 {
+        transition: 0.3s;
+    }
+
+    .transition-500 {
+        transition: 0.5s;
+    }
+
+    .transform-active:active {
+        transform: scale(0.96);
+    }
+
+    .form-control::placeholder {
+        color: #cbd5e1;
+        font-weight: 400;
+        font-size: 0.9rem;
+    }
+</style>
+
+{% include 'footer.html' %}

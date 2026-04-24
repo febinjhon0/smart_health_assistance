@@ -1,0 +1,123 @@
+{% include 'header.html' %}
+
+<div class="auth-section py-10 bg-light-soft min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                    <div class="text-center mb-5">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-4"
+                            style="width: 80px; height: 80px;">
+                            <i class="fa fa-user-plus text-primary fs-1"></i>
+                        </div>
+                        <h2 class="fw-bold text-dark mb-2">Create Your Account</h2>
+                        <p class="text-muted">Join our community for personalized health care</p>
+                    </div>
+
+                    <form action="/addregister/" method="POST">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Full Name</label>
+                                <input type="text" name="name"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="Alexander Pierce" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Email Address</label>
+                                <input type="email" name="email"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="alexander@example.com" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Phone Number</label>
+                                <input type="tel" name="phone" pattern="[0-9]{10}"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="10-Digit Phone" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Age</label>
+                                <input type="number" name="age"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="24" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Gender</label>
+                                <select name="gender"
+                                    class="form-select py-3 px-4 rounded-3 border-light-dark shadow-none">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Non-Binary">Non-Binary</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark small uppercase ls-1">Password</label>
+                                <input type="password" name="password"
+                                    class="form-control py-3 px-4 rounded-3 border-light-dark shadow-none"
+                                    placeholder="••••••••" required>
+                            </div>
+
+                            <div class="col-12 mt-5">
+                                <button type="submit"
+                                    class="btn btn-primary w-100 py-3 rounded-3 fw-bold shadow-sm transition-300 transform-active">
+                                    CREATE ACCOUNT
+                                </button>
+                                <p class="text-center mt-4 small text-muted">
+                                    By registering, you agree to our <a href="#"
+                                        class="text-primary text-decoration-none">Privacy Policy</a> and <a href="#"
+                                        class="text-primary text-decoration-none">Terms of Service</a>.
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+
+                    <hr class="my-5 opacity-10">
+
+                    <div class="text-center">
+                        <p class="small text-muted mb-0">Already have an account? <a href="/login"
+                                class="text-primary fw-bold text-decoration-none">Sign in here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-soft {
+        background-color: #f8fafc;
+    }
+
+    .border-light-dark {
+        border: 1px solid #e2e8f0;
+    }
+
+    .border-light-dark:focus {
+        border-color: #3b82f6;
+        background-color: #fff;
+    }
+
+    .ls-1 {
+        letter-spacing: 0.5px;
+    }
+
+    .py-10 {
+        padding: 80px 0;
+    }
+
+    .transform-active:active {
+        transform: scale(0.98);
+    }
+
+    .transition-300 {
+        transition: all 0.3s ease;
+    }
+</style>
+
+{% include 'footer.html' %}

@@ -1,0 +1,563 @@
+{% block content %}
+{% include 'header.html' %}
+{% load static %}
+
+<!-- Modern Professional Health Header -->
+<div class="hero-premium min-vh-100 d-flex align-items-center position-relative overflow-hidden bg-white">
+    <!-- Abstract Background Decor -->
+    <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container position-relative z-index-2">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="hero-badge-clean mb-4 d-inline-flex align-items-center">
+                    <span class="badge-dot pulse-primary"></span>
+                    <span class="badge-text uppercase ls-2 fw-bold text-primary small">Smart Health Assistant</span>
+                </div>
+
+                <h1 class="display-2 fw-extra-bold text-dark-blue mb-4 tracking-tight">
+                    Smart Care for <br>
+                    <span class="text-primary-gradient">Better Living.</span>
+                </h1>
+
+                <p class="fs-5 text-muted-blue mb-5 max-w-600 lh-relaxed">
+                    Access expert symptom analysis and connect with certified medical professionals instantly.
+                    Experience
+                    healthcare that moves as fast as you do.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 mb-10">
+                    {% if request.session.userid %}
+                    <a href="/profile/" class="btn btn-primary-pill btn-lg px-5 py-4 shadow-primary transform-active">
+                        <i class="fa fa-user-circle me-2"></i> YOUR PROFILE
+                    </a>
+                    {% elif request.session.admin %}
+                    <a href="/viewuser/" class="btn btn-primary-pill btn-lg px-5 py-4 shadow-primary transform-active">
+                        <i class="fa fa-users me-2"></i> MANAGE USERS
+                    </a>
+                    {% elif request.session.did %}
+                    <a href="/appointments/" class="btn btn-primary-pill btn-lg px-5 py-4 shadow-primary transform-active">
+                        <i class="fa fa-calendar-check me-2"></i> VIEW APPOINTMENTS
+                    </a>
+                    {% else %}
+                    <a href="/login/" class="btn btn-primary-pill btn-lg px-5 py-4 shadow-primary transform-active">
+                        <i class="fa fa-calendar-check me-2"></i> GET STARTED
+                    </a>
+                    {% endif %}
+                    <a href="#features-system" class="btn btn-outline-pill btn-lg px-5 py-4 transition-300">
+                        LEARN MORE
+                    </a>
+                </div>
+
+                <div class="row g-4 mt-5 pt-5 border-top border-light">
+                    <div class="col-auto">
+                        <div class="metric-item">
+                            <span class="d-block h2 fw-extra-bold text-dark-blue mb-0">99.8%</span>
+                            <span class="text-muted small fw-bold text-uppercase ls-1">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="col-auto px-4">
+                        <div class="vr h-100 opacity-10"></div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="metric-item">
+                            <span class="d-block h2 fw-extra-bold text-dark-blue mb-0">2.4M</span>
+                            <span class="text-muted small fw-bold text-uppercase ls-1">Health Records</span>
+                        </div>
+                    </div>
+                    <div class="col-auto px-4">
+                        <div class="vr h-100 opacity-10"></div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="metric-item">
+                            <span class="d-block h2 fw-extra-bold text-dark-blue mb-0">24/7</span>
+                            <span class="text-muted small fw-bold text-uppercase ls-1">Active Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-none d-lg-block wow fadeInRight" data-wow-delay="0.3s">
+                <div class="hero-visual-container">
+                    <div class="card-float-top shadow-card animate-float-slow">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-circle bg-primary-light text-primary">
+                                <i class="fa fa-heart-pulse"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark h6 mb-0">Health Check</div>
+                                <div class="text-muted x-small fw-bold">Active Analysis</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-float-bottom shadow-card animate-float">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-circle bg-success-light text-success">
+                                <i class="fa fa-shield-check"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark h6 mb-0">Safe Care</div>
+                                <div class="text-muted x-small fw-bold">Secure Access</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-hero-image shadow-2xl rounded-circle overflow-hidden p-3 bg-white border">
+                        <img src="{% static 'img/hero_bg_new.png' %}" class="img-fluid rounded-circle"
+                            alt="Smart Health Core">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div id="features-system" class="py-10 bg-light-soft">
+    ... (omitted for brevity) ...
+</div>
+
+<!-- Departments Section -->
+<div id="departments" class="py-10 bg-white">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-10 max-w-800 wow fadeInUp">
+            <h6 class="text-primary fw-extra-bold ls-3 uppercase mb-3">Specialty Departments</h6>
+            <h2 class="display-5 fw-extra-bold text-dark-blue mb-4">Dedicated Medical Excellence</h2>
+            <p class="text-muted-blue fs-5">Select a department to find specialized doctors for your specific health needs.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a href="/viewdoctor/?specialization=Cardiology" class="text-decoration-none">
+                    <div class="department-card p-5 rounded-5 border bg-light-soft text-center transition-500">
+                        <div class="icon-circle bg-danger-light text-danger mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 24px;">
+                            <i class="fa fa-heart-pulse fs-2"></i>
+                        </div>
+                        <h4 class="fw-extra-bold text-dark-blue mb-2">Cardiology</h4>
+                        <p class="text-muted small mb-0">Heart & Vascular Care</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <a href="/viewdoctor/?specialization=Neurology" class="text-decoration-none">
+                    <div class="department-card p-5 rounded-5 border bg-light-soft text-center transition-500">
+                        <div class="icon-circle bg-info-light text-info mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 24px;">
+                            <i class="fa fa-brain fs-2"></i>
+                        </div>
+                        <h4 class="fw-extra-bold text-dark-blue mb-2">Neurology</h4>
+                        <p class="text-muted small mb-0">Brain & Nervous System</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a href="/viewdoctor/?specialization=Pediatrics" class="text-decoration-none">
+                    <div class="department-card p-5 rounded-5 border bg-light-soft text-center transition-500">
+                        <div class="icon-circle bg-success-light text-success mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 24px;">
+                            <i class="fa fa-child-reaching fs-2"></i>
+                        </div>
+                        <h4 class="fw-extra-bold text-dark-blue mb-2">Pediatrics</h4>
+                        <p class="text-muted small mb-0">Child Healthcare</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                <a href="/viewdoctor/?specialization=Orthopedics" class="text-decoration-none">
+                    <div class="department-card p-5 rounded-5 border bg-light-soft text-center transition-500">
+                        <div class="icon-circle bg-warning-light text-warning mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 24px;">
+                            <i class="fa fa-bone fs-2"></i>
+                        </div>
+                        <h4 class="fw-extra-bold text-dark-blue mb-2">Orthopedics</h4>
+                        <p class="text-muted small mb-0">Bone & Joint Health</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="text-center mt-10">
+            <a href="/viewdoctor/" class="btn btn-outline-pill px-5 py-3 fw-bold">
+                VIEW ALL DEPARTMENTS <i class="fa fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .department-card:hover {
+        background: white !important;
+        border-color: var(--bs-primary) !important;
+        transform: translateY(-12px);
+        box-shadow: 0 30px 60px -12px rgba(0,0,0,0.1);
+    }
+    .bg-danger-light { background: rgba(220, 53, 69, 0.1); }
+    .bg-info-light { background: rgba(13, 202, 240, 0.1); }
+    .bg-warning-light { background: rgba(255, 193, 7, 0.1); }
+</style>
+
+<!-- Integrated Care Flow -->
+<div class="py-10 bg-white">
+    <div class="container py-10">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 wow fadeInLeft">
+                <div class="synergy-wrapper position-relative">
+                    <div class="stats-badge-floating bg-white shadow-card p-4 rounded-4 animate-float">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-success bg-opacity-10 p-2 text-success">
+                                <i class="fa fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark small">Records Secured</h6>
+                                <span class="text-muted x-small fw-bold">E2E ENCRYPTED</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="{% static 'img/about.jpg' %}" class="img-fluid rounded-5 shadow-2xl scale-hover-soft"
+                        alt="Medical Process">
+                </div>
+            </div>
+
+            <div class="col-lg-6 wow fadeInRight ps-lg-10">
+                <h6 class="text-primary fw-extra-bold ls-2 uppercase mb-4">Better Together</h6>
+                <h2 class="display-4 fw-extra-bold text-dark-blue mb-5 lh-tight">Better Care, <br> Faster.</h2>
+                <p class="text-muted-blue fs-5 mb-10">Our platform ensures that technology never replaces the doctor,
+                    but helps them.</p>
+
+                <div class="row g-4">
+                    <div class="col-sm-6">
+                        <div class="p-4 rounded-5 bg-light-soft border card-hover-classic transition-300">
+                            <div class="h3 fw-extra-bold text-primary mb-2">Instant</div>
+                            <h5 class="fw-bold text-dark-blue mb-1">No Waiting</h5>
+                            <p class="text-muted small mb-0">No more waiting rooms for initial health checks.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-4 rounded-5 bg-light-soft border card-hover-classic transition-300">
+                            <div class="h3 fw-extra-bold text-success mb-2">Accurate</div>
+                            <h5 class="fw-bold text-dark-blue mb-1">Peer Reviewed</h5>
+                            <p class="text-muted small mb-0">AI trained on millions of verified medical records.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .bg-light-soft {
+        background: #f8fafc;
+    }
+
+    .text-dark-blue {
+        color: #0f172a;
+    }
+
+    .text-muted-blue {
+        color: #475569;
+    }
+
+    .fw-extra-bold {
+        font-weight: 800;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .ls-3 {
+        letter-spacing: 3px;
+    }
+
+    .tracking-tight {
+        letter-spacing: -1.5px;
+    }
+
+    .x-small {
+        font-size: 0.65rem;
+    }
+
+    .max-w-600 {
+        max-width: 600px;
+    }
+
+    .max-w-800 {
+        max-width: 800px;
+    }
+
+    .py-10 {
+        padding: 100px 0;
+    }
+
+    .mb-10 {
+        margin-bottom: 60px;
+    }
+
+    .ps-lg-10 {
+        padding-left: 60px;
+    }
+
+    .text-primary-gradient {
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Hero Shapes */
+    .hero-bg-shapes {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.15;
+    }
+
+    .shape-1 {
+        width: 500px;
+        height: 500px;
+        background: #2563eb;
+        top: -100px;
+        right: -100px;
+    }
+
+    .shape-2 {
+        width: 400px;
+        height: 400px;
+        background: #7c3aed;
+        bottom: -50px;
+        left: -100px;
+    }
+
+    .shape-3 {
+        width: 300px;
+        height: 300px;
+        background: #0ea5e9;
+        top: 40%;
+        left: 20%;
+    }
+
+    /* Badge */
+    .hero-badge-clean {
+        padding: 8px 16px;
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.1);
+        border-radius: 50px;
+    }
+
+    .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #2563eb;
+        margin-right: 12px;
+    }
+
+    .pulse-primary {
+        animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+        0% {
+            transform: scale(0.9);
+            opacity: 0.7;
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+        }
+
+        100% {
+            transform: scale(0.9);
+            opacity: 0.7;
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+        }
+    }
+
+    /* Buttons */
+    .btn-primary-pill {
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: 0.4s;
+    }
+
+    .btn-primary-pill:hover {
+        background: #1d4ed8;
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-outline-pill {
+        border: 2px solid #e2e8f0;
+        color: #475569;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: 0.4s;
+    }
+
+    .btn-outline-pill:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+        color: #1e293b;
+    }
+
+    /* Cards */
+    .hero-visual-container {
+        position: relative;
+        padding: 60px;
+    }
+
+    .shadow-card {
+        box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-float-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        padding: 20px 24px;
+        border-radius: 20px;
+        z-index: 10;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .card-float-bottom {
+        position: absolute;
+        bottom: 40px;
+        right: 0;
+        background: white;
+        padding: 20px 24px;
+        border-radius: 20px;
+        z-index: 10;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .icon-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    .bg-primary-light {
+        background: rgba(37, 99, 235, 0.1);
+    }
+
+    .bg-success-light {
+        background: rgba(16, 185, 129, 0.1);
+    }
+
+    .main-hero-image {
+        width: 420px;
+        height: 420px;
+        margin: 0 auto;
+    }
+
+    /* Feature Boxes */
+    .feature-box-light {
+        background: white;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .feature-box-light.active {
+        background: #ffffff;
+        border-color: rgba(37, 99, 235, 0.15);
+    }
+
+    .shadow-hover:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.1) !important;
+        border-color: #2563eb;
+    }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Floats */
+    .animate-float {
+        animation: float-base 5s infinite ease-in-out;
+    }
+
+    .animate-float-slow {
+        animation: float-base 7s infinite ease-in-out;
+    }
+
+    @keyframes float-base {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .stats-badge-floating {
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        z-index: 10;
+        border: 4px solid white;
+    }
+
+    .scale-hover-soft {
+        transition: 0.6s;
+    }
+
+    .scale-hover-soft:hover {
+        transform: scale(1.02);
+    }
+
+    .card-hover-classic:hover {
+        background: white !important;
+        border-color: #2563eb !important;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .transform-active:active {
+        transform: scale(0.96);
+    }
+
+    .transition-300 {
+        transition: 0.3s;
+    }
+</style>
+
+{% include 'footer.html' %}
+{% endblock %}

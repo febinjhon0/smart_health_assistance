@@ -1,0 +1,62 @@
+MEDICAL AI CHATBOT - QUESTIONS & SAMPLE ANSWERS
+
+---
+CATEGORY 1: SYMPTOM ANALYSIS
+---
+1. Q: I have been having a sharp headache behind my left eye and sensitivity to light. What could this be?
+   A: I understand you are asking about your headache. Based on my knowledge, you should monitor your symptoms and stay hydrated. If symptoms persist, book an appointment.
+
+2. Q: I feel a persistent dull ache in my lower abdomen for the last 3 hours. Any advice?
+   A: I understand you are asking about abdominal pain. Based on my knowledge, you should monitor your symptoms and stay hydrated. If symptoms persist, book an appointment.
+
+3. Q: I have a dry cough, itchy throat, and mild congestion, but no fever. Is this likely an allergy or a cold?
+   A: I understand you are asking about your cough. Based on my knowledge, you should monitor your symptoms and stay hydrated. If symptoms persist, book an appointment.
+
+4. Q: My heart feels like it is racing even when I am sitting still. Should I be concerned?
+   A: I understand you are asking about your heart rate. Based on my knowledge, you should monitor your symptoms and stay hydrated. If symptoms persist, book an appointment.
+
+5. Q: I've noticed a small, red, itchy rash on my arm after gardening. What are the common causes?
+   A: I understand you are asking about a rash. Based on my knowledge, you should monitor your symptoms and stay hydrated. If symptoms persist, book an appointment.
+
+---
+CATEGORY 2: MEDICINE & FIRST AID
+---
+6. Q: What is the normal dose of paracetamol for an adult?
+   A: [Simple Health Tip + Booking Link]
+
+7. Q: How should I clean a small scrape on my knee?
+   A: [Simple Health Tip + Booking Link]
+
+---
+CATEGORY 3: LONG-TERM HEALTH
+---
+8. Q: How is Diabetes usually managed?
+   A: [Simple Health Tip + Booking Link]
+
+9. Q: What are the signs of a Thyroid problem?
+   A: [Simple Health Tip + Booking Link]
+
+10. Q: I feel tired and pale. Could it be low iron?
+    A: [Simple Health Tip + Booking Link]
+
+---
+CATEGORY 4: COMMON ILLNESSES
+---
+11. Q: I have a high fever and body aches. Is it the Flu?
+    A: [Simple Health Tip + Booking Link]
+
+12. Q: My eyes hurt after using a computer all day. Any tips?
+    A: [Simple Health Tip + Booking Link]
+
+13. Q: I have sharp pain in my side. Could it be Kidney Stones?
+    A: [Simple Health Tip + Booking Link]
+
+---
+FULL LIST OF TOPICS
+---
+Headache, Abdomen, Cough, Heart, Rash, Paracetamol, Scrape, Vitamin D, Antibiotics, Aspirin, Back Pain, Fiber, Water, Sleep, Blood Pressure, Viral, Cholesterol, Sprains, Heart Rate, Diabetes, Fever, Chest Pain, Dizziness, Sore Throat, Insomnia, Anxiety, Joint Pain, Asthma, UTI, Kidney Stones, Thyroid, Anemia, Dehydration, Flu, Allergies, Eye Strain, Nausea.
+
+---
+USAGE TIP:
+Copy any question from this list and paste it into the chat terminal.
+---
