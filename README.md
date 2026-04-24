@@ -25,9 +25,6 @@
 - [User Roles](#user-roles)
 - [Future Enhancements](#future-enhancements)
 - [Limitations](#limitations)
-- [Author](#author)
-- [Acknowledgements](#acknowledgements)
-
 ---
 
 ## 📖 About the Project
@@ -468,8 +465,3 @@ pip install -r requirements.txt
 ```
 
 ---
-<p align="center">
-  Made with ❤️ for better healthcare accessibility
-  <br/>
-  STAS Edappally — MCA 2024-2026
-</p>
