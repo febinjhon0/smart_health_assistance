@@ -29,8 +29,7 @@
 
 ## 📖 About the Project
 
-The **Smart Health AI Assistant System** is a full-stack web application developed as a final year project for the Master of Computer Applications (MCA) degree at **School of Technology and Applied Sciences (STAS), Edappally**, affiliated to Mahatma Gandhi University, Kottayam.
-
+This is a **hospital management + disease prediction** website built with Django and Python.
 The system allows users to enter their symptoms through **text or voice input**, analyses them using a trained **Machine Learning model**, and predicts possible diseases along with confidence levels. It also provides basic medication guidance, suggests doctors, and enables **online appointment booking and consultation**.
 
 ### 🎯 Goal
